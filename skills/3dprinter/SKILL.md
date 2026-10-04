@@ -1,5 +1,5 @@
 ---
-name: 3dprinter
+name: three-d-printer
 description: Master 3D printing, parametric CAD, and robotics kit assistant for OpenSCAD. Creates bespoke snap-fit enclosures, household utility fixes, Kids STEM Amazon robot kits, autonomous rovers, OpenArm 7-DOF joints, workshop jigs, vacuum adapters, phone cases, and 3D printer mods with physical Part ID debossing, ∞ Meraki hallmarks, and instant zero-token WebGL 3D previewing.
 ---
 

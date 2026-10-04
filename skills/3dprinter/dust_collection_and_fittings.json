@@ -1,0 +1,66 @@
+{
+  "version": "2.0.0",
+  "description": "Standard OD/IDs, taper angles, bayonets, and magnetic locks for workshop dust collection and vacuum hoses",
+  "fittings_metric_and_imperial": {
+    "SHOP_VAC_2_5_INCH": {
+      "nominal_size": "2.5 inch",
+      "male_tip_od_mm": 57.15,
+      "male_base_od_mm": 58.74,
+      "male_taper_len_mm": 38.0,
+      "female_mouth_id_mm": 59.20,
+      "female_throat_id_mm": 57.50,
+      "taper_angle_deg": 1.2,
+      "brand_compatibility": ["Shop-Vac", "Rigid 2.5", "Craftsman 2.5", "Bauer 2.5"]
+    },
+    "SHOP_VAC_1_25_INCH": {
+      "nominal_size": "1.25 inch",
+      "male_tip_od_mm": 31.75,
+      "male_base_od_mm": 32.50,
+      "male_taper_len_mm": 30.0,
+      "female_mouth_id_mm": 32.80,
+      "female_throat_id_mm": 32.00
+    },
+    "RIDGID_1_78_INCH": {
+      "nominal_size": "1-7/8 inch",
+      "male_tip_od_mm": 47.60,
+      "male_base_od_mm": 48.80,
+      "male_taper_len_mm": 32.0
+    },
+    "FESTOOL_D27_TWIST": {
+      "nominal_size": "Festool D27 Twist-Lock",
+      "outer_dia_mm": 36.0,
+      "inner_bore_mm": 27.0,
+      "twist_lock_lugs": { "count": 2, "width_mm": 4.0, "height_mm": 2.5, "engagement_mm": 22.0 }
+    },
+    "FESTOOL_D36": {
+      "nominal_size": "Festool D36 Dust Extraction",
+      "male_tip_od_mm": 44.5,
+      "male_base_od_mm": 45.8,
+      "male_taper_len_mm": 35.0,
+      "inner_bore_mm": 36.0
+    },
+    "DEWALT_AIRLOCK_DWV9000": {
+      "nominal_size": "DeWalt AirLock Universal Quick Connector",
+      "outer_collar_dia_mm": 42.8,
+      "inner_recess_dia_mm": 38.2,
+      "lock_detent_pitch_mm": 12.0
+    },
+    "BOSCH_35MM_CLICK": {
+      "nominal_size": "Bosch 35mm Professional Dust Port",
+      "outer_dia_mm": 35.0,
+      "inner_dia_mm": 28.0,
+      "click_ring_recess_dia_mm": 33.2
+    },
+    "CAMVAC_4_INCH": {
+      "nominal_size": "4 Inch Workshop Blast Gate / PVC Duct",
+      "nominal_od_mm": 100.0,
+      "male_tip_od_mm": 99.2,
+      "male_base_od_mm": 101.0,
+      "taper_len_mm": 50.0
+    }
+  },
+  "magnetic_dust_locks": {
+    "MAG_DUST_PORT_63": { "hose_id_mm": 63.5, "magnet_spec": "MAG_10x3", "magnet_count": 8, "bolt_circle_mm": 82.0, "o_ring_groove_dia_mm": 72.0, "o_ring_cross_section_mm": 2.5 },
+    "MAG_DUST_PORT_100": { "hose_id_mm": 100.0, "magnet_spec": "MAG_12x3", "magnet_count": 12, "bolt_circle_mm": 124.0, "o_ring_groove_dia_mm": 112.0, "o_ring_cross_section_mm": 3.0 }
+  }
+}

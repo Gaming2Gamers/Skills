@@ -1,0 +1,75 @@
+{
+  "version": "2.0.0",
+  "description": "Exhaustive CAD database of 50+ PCBs, SBCs, Microcontrollers, Servos, Steppers, Sensors, Buck Converters, and Motor Drivers",
+  "single_board_computers": {
+    "RPI-5-B": { "name": "Raspberry Pi 5 Model B", "dims_mm": [85.0, 56.0, 1.6], "holes_mm": { "dx": 58.0, "dy": 49.0, "origin": [3.5, 3.5], "dia": 2.75, "screw": "M2.5" }, "ports": ["USB-C", "Dual Micro-HDMI", "2x USB3", "2x USB2", "GbE", "PCIe-FFC", "MicroSD"] },
+    "RPI-4-B": { "name": "Raspberry Pi 4 Model B", "dims_mm": [85.0, 56.0, 1.4], "holes_mm": { "dx": 58.0, "dy": 49.0, "origin": [3.5, 3.5], "dia": 2.75, "screw": "M2.5" }, "ports": ["USB-C", "Dual Micro-HDMI", "GbE", "2x USB3", "2x USB2", "MicroSD"] },
+    "RPI-3-B-PLUS": { "name": "Raspberry Pi 3 Model B+", "dims_mm": [85.0, 56.0, 1.4], "holes_mm": { "dx": 58.0, "dy": 49.0, "origin": [3.5, 3.5], "dia": 2.75, "screw": "M2.5" }, "ports": ["Micro-USB", "Full HDMI", "GbE", "4x USB2", "MicroSD"] },
+    "RPI-ZERO-2W": { "name": "Raspberry Pi Zero 2 W", "dims_mm": [65.0, 30.0, 1.4], "holes_mm": { "dx": 58.0, "dy": 23.0, "origin": [3.5, 3.5], "dia": 2.75, "screw": "M2.5" }, "ports": ["Micro-USB PWR", "Micro-USB OTG", "Mini-HDMI", "MicroSD"] },
+    "RPI-ZERO-W": { "name": "Raspberry Pi Zero W", "dims_mm": [65.0, 30.0, 1.4], "holes_mm": { "dx": 58.0, "dy": 23.0, "origin": [3.5, 3.5], "dia": 2.75, "screw": "M2.5" }, "ports": ["Micro-USB PWR", "Micro-USB OTG", "Mini-HDMI", "MicroSD"] },
+    "ORANGE-PI-5-PLUS": { "name": "Orange Pi 5 Plus", "dims_mm": [100.0, 75.0, 1.6], "holes_mm": { "dx": 93.0, "dy": 68.0, "origin": [3.5, 3.5], "dia": 3.0, "screw": "M2.5/M3" }, "ports": ["Type-C", "Dual HDMI", "Dual 2.5GbE", "M.2 E-Key", "M.2 M-Key"] },
+    "ORANGE-PI-ZERO-3": { "name": "Orange Pi Zero 3", "dims_mm": [55.0, 50.0, 1.6], "holes_mm": { "dx": 47.0, "dy": 42.0, "origin": [4.0, 4.0], "dia": 3.0, "screw": "M2.5" }, "ports": ["Type-C", "Micro-HDMI", "Gigabit Ethernet", "USB 2.0"] },
+    "BANANA-PI-M4-BERRY": { "name": "Banana Pi BPI-M4 Berry", "dims_mm": [85.0, 56.0, 1.6], "holes_mm": { "dx": 58.0, "dy": 49.0, "origin": [3.5, 3.5], "dia": 2.75, "screw": "M2.5" } },
+    "LATTEPANDA-3-DELTA": { "name": "LattePanda 3 Delta", "dims_mm": [125.0, 78.0, 1.6], "holes_mm": { "dx": 115.0, "dy": 68.0, "origin": [5.0, 5.0], "dia": 3.2, "screw": "M3" }, "ports": ["Type-C PD", "HDMI 2.0b", "eDP", "Gigabit Ethernet", "M.2 NVMe"] },
+    "RADXA-ROCK-5B": { "name": "Radxa ROCK 5 Model B", "dims_mm": [100.0, 72.0, 1.6], "holes_mm": { "dx": 92.0, "dy": 64.0, "origin": [4.0, 4.0], "dia": 3.0, "screw": "M2.5" } }
+  },
+  "microcontrollers": {
+    "ESP32-DEV-30P": { "name": "ESP32 NodeMCU 30-Pin DevKit", "dims_mm": [51.5, 28.5, 1.6], "holes_mm": { "dx": 46.5, "dy": 23.5, "origin": [2.5, 2.5], "dia": 3.0, "screw": "M2.5" }, "pin_pitch_mm": 25.4 },
+    "ESP32-DEV-38P": { "name": "ESP32 WROOM-32 38-Pin DevKit", "dims_mm": [54.5, 28.0, 1.6], "holes_mm": { "dx": 49.5, "dy": 23.0, "origin": [2.5, 2.5], "dia": 3.0, "screw": "M2.5" }, "pin_pitch_mm": 25.4 },
+    "ESP32-S3-DEVKITC-1": { "name": "ESP32-S3-DevKitC-1 Dual Type-C", "dims_mm": [70.0, 31.8, 1.6], "holes_mm": { "dx": 64.0, "dy": 25.8, "origin": [3.0, 3.0], "dia": 3.0, "screw": "M2.5" } },
+    "ESP32-CAM": { "name": "AI-Thinker ESP32-CAM with OV2640", "dims_mm": [40.5, 27.0, 1.6], "holes_mm": { "dx": 0, "dy": 0, "note": "cradle mount" }, "lens_dia_mm": 8.0, "antenna_keepout": true },
+    "ARD-UNO-R3": { "name": "Arduino Uno R3 / R4 Minima", "dims_mm": [68.6, 53.4, 1.6], "holes_mm": { "custom": [[14.0, 2.5], [66.1, 7.6], [66.1, 35.6], [15.3, 50.8]], "dia": 3.2, "screw": "M3" } },
+    "ARD-MEGA-2560": { "name": "Arduino Mega 2560 R3", "dims_mm": [101.6, 53.4, 1.6], "holes_mm": { "custom": [[14.0, 2.5], [66.1, 7.6], [66.1, 35.6], [15.3, 50.8], [96.5, 2.5], [96.5, 50.8]], "dia": 3.2, "screw": "M3" } },
+    "ARD-NANO-V3": { "name": "Arduino Nano V3 (ATmega328P)", "dims_mm": [45.0, 18.0, 1.6], "pin_pitch_mm": 15.24, "port": "Mini-B / Type-C" },
+    "ARD-PRO-MINI": { "name": "Arduino Pro Mini 3.3V/5V", "dims_mm": [33.0, 18.0, 1.2], "pin_pitch_mm": 15.24 },
+    "RPI-PICO": { "name": "Raspberry Pi Pico / Pico W / Pico 2", "dims_mm": [51.0, 21.0, 1.0], "holes_mm": { "dx": 47.0, "dy": 11.4, "origin": [2.0, 4.8], "dia": 2.1, "screw": "M2" } },
+    "SEEED-XIAO-ESP32S3": { "name": "Seeed Studio XIAO ESP32-S3", "dims_mm": [21.0, 17.5, 1.2], "port": "USB-C", "snap_clip_clearance_mm": 0.2 },
+    "SEEED-XIAO-RP2040": { "name": "Seeed Studio XIAO RP2040", "dims_mm": [21.0, 17.5, 1.2], "port": "USB-C" },
+    "TEENSY-4-1": { "name": "PJRC Teensy 4.1", "dims_mm": [61.0, 17.8, 1.6], "port": "Micro-USB / Ethernet header" },
+    "TEENSY-4-0": { "name": "PJRC Teensy 4.0", "dims_mm": [35.6, 17.8, 1.6], "port": "Micro-USB" },
+    "STM32-BLUEPILL": { "name": "STM32F103C8T6 Blue Pill", "dims_mm": [53.3, 22.8, 1.6], "pin_pitch_mm": 17.78 },
+    "STM32-NUCLEO-64": { "name": "STMicroelectronics Nucleo-64", "dims_mm": [82.5, 70.0, 1.6], "holes_mm": { "dx": 74.0, "dy": 62.0, "dia": 3.2, "screw": "M3" } }
+  },
+  "three_d_printer_boards": {
+    "BTT-SKR-MINI-E3-V3": { "name": "BigTreeTech SKR Mini E3 V3.0", "dims_mm": [100.0, 70.2, 1.6], "holes_mm": { "dx": 92.5, "dy": 62.7, "origin": [3.75, 3.75], "dia": 3.2, "screw": "M3" } },
+    "BTT-OCTOPUS-PRO": { "name": "BigTreeTech Octopus Pro V1.1", "dims_mm": [160.0, 100.0, 1.6], "holes_mm": { "dx": 150.0, "dy": 90.0, "origin": [5.0, 5.0], "dia": 3.5, "screw": "M3" } },
+    "BTT-MANTA-M8P": { "name": "BigTreeTech Manta M8P V2.0", "dims_mm": [170.0, 102.7, 1.6], "holes_mm": { "dx": 160.0, "dy": 92.7, "origin": [5.0, 5.0], "dia": 3.5, "screw": "M3" } },
+    "FLY-SUPER8-PRO": { "name": "Mellow Fly Super 8 Pro", "dims_mm": [165.0, 100.0, 1.6], "holes_mm": { "dx": 155.0, "dy": 90.0, "dia": 3.5, "screw": "M3" } },
+    "CREALITY-4-2-7": { "name": "Creality V4.2.7 Silent Board", "dims_mm": [100.0, 70.0, 1.6], "holes_mm": { "dx": 92.0, "dy": 62.0, "dia": 3.2, "screw": "M3" } }
+  },
+  "servos_and_actuators": {
+    "SERVO-SG90": { "name": "SG90 / MG90S 9g Micro Servo", "body_mm": [22.8, 12.2, 22.8], "flange_mm": [32.5, 12.2, 2.5], "hole_pitch_mm": 28.0, "hole_dia_mm": 2.0, "spline_offset_mm": 5.8 },
+    "SERVO-MG996R": { "name": "MG996R / MG995 Standard Metal Servo", "body_mm": [40.7, 19.7, 36.5], "flange_mm": [54.0, 20.0, 4.2], "hole_pitch_mm": [48.5, 10.0], "hole_dia_mm": 4.4, "spline_offset_mm": 10.0 },
+    "SERVO-DS3218": { "name": "DS3218 20kg Waterproof Servo", "body_mm": [40.0, 20.0, 40.5], "flange_mm": [54.0, 20.0, 4.0], "hole_pitch_mm": [48.5, 10.0], "hole_dia_mm": 4.4 },
+    "SERVO-DYNAMIXEL-XM430": { "name": "Robotis Dynamixel XM430-W350", "body_mm": [28.5, 46.5, 34.0], "grid_thread": "M2.5", "grid_spacing_mm": 22.0 },
+    "SERVO-FEETECH-STS3215": { "name": "Feetech STS3215 Bus Servo", "body_mm": [45.2, 24.7, 35.0], "hole_pitch_mm": [48.5, 12.0], "horn_dia_mm": 20.0 },
+    "SERVO-DAMIAO-DM-J4310": { "name": "DaMiao DM-J4310 MIT Direct Drive", "body_dia_mm": 49.0, "height_mm": 28.5, "bolt_circle_mm": 44.0, "thread": "M3" },
+    "SERVO-STEADYWIN-TT4510": { "name": "SteadyWin TT4510-10 Actuator", "body_dia_mm": 52.0, "height_mm": 32.0, "bolt_circle_mm": 46.0, "thread": "M3" }
+  },
+  "stepper_motors": {
+    "NEMA17-34": { "face_mm": [42.3, 42.3], "depth_mm": 34.0, "pilot_dia_mm": 22.0, "pilot_h_mm": 2.0, "hole_pitch_mm": 31.04, "thread": "M3", "shaft_dia_mm": 5.0 },
+    "NEMA17-40": { "face_mm": [42.3, 42.3], "depth_mm": 40.0, "pilot_dia_mm": 22.0, "pilot_h_mm": 2.0, "hole_pitch_mm": 31.04, "thread": "M3", "shaft_dia_mm": 5.0 },
+    "NEMA17-48": { "face_mm": [42.3, 42.3], "depth_mm": 48.0, "pilot_dia_mm": 22.0, "pilot_h_mm": 2.0, "hole_pitch_mm": 31.04, "thread": "M3", "shaft_dia_mm": 5.0 },
+    "NEMA14-PENCIL": { "face_mm": [35.2, 35.2], "depth_mm": 28.0, "pilot_dia_mm": 22.0, "hole_pitch_mm": 26.0, "thread": "M3", "shaft_dia_mm": 5.0 },
+    "NEMA23-56": { "face_mm": [56.4, 56.4], "depth_mm": 56.0, "pilot_dia_mm": 38.1, "hole_pitch_mm": 47.14, "hole_dia_mm": 5.2, "shaft_dia_mm": 6.35 },
+    "STEPPER-28BYJ-48": { "name": "28BYJ-48 5V Geared Stepper", "body_dia_mm": 28.0, "depth_mm": 19.0, "flange_tabs_pitch_mm": 35.0, "hole_dia_mm": 4.2, "shaft_dia_mm": 5.0, "flat_cut_mm": 3.0 }
+  },
+  "sensors_and_cameras": {
+    "SENSOR-BME280": { "name": "BME280 Temp/Humidity/Pressure Breakout", "dims_mm": [15.2, 12.0, 1.2], "hole_pitch_mm": [10.0, 0], "hole_dia_mm": 2.5 },
+    "SENSOR-HC-SR04": { "name": "HC-SR04 Ultrasonic Distance Sensor", "dims_mm": [45.0, 20.0, 1.6], "transducer_dia_mm": 16.0, "transducer_pitch_mm": 26.0, "depth_mm": 15.0 },
+    "SENSOR-VL53L0X": { "name": "VL53L0X Time-of-Flight Laser Sensor", "dims_mm": [25.0, 10.5, 1.2], "holes_mm": { "dx": 20.0, "dy": 0, "dia": 2.5 } },
+    "SENSOR-MPU6050": { "name": "GY-521 MPU-6050 6-DOF IMU", "dims_mm": [20.5, 15.6, 1.6], "holes_mm": { "dx": 15.0, "dy": 10.0, "dia": 3.0 } },
+    "SENSOR-RPLIDAR-C1": { "name": "Slamtec RPLiDAR C1", "base_dims_mm": [55.6, 55.6, 41.3], "bolt_pattern_mm": [40.0, 40.0], "thread": "M2.5" },
+    "SENSOR-RPLIDAR-A1": { "name": "Slamtec RPLiDAR A1M8", "base_dims_mm": [96.8, 70.3, 55.0], "bolt_pattern_mm": [79.0, 47.0], "hole_dia_mm": 3.2 },
+    "CAMERA-RPI-V2": { "name": "Raspberry Pi Camera Module V2 (IMX219)", "pcb_mm": [25.0, 24.0, 1.0], "holes_mm": { "dx": 21.0, "dy": 12.5, "dia": 2.2, "screw": "M2" }, "lens_dia_mm": 8.5 },
+    "CAMERA-RPI-V3": { "name": "Raspberry Pi Camera Module 3 (Autofocus)", "pcb_mm": [25.0, 24.0, 1.2], "holes_mm": { "dx": 21.0, "dy": 12.5, "dia": 2.2, "screw": "M2" }, "lens_dia_mm": 11.5 },
+    "CAMERA-REALSENSE-D435": { "name": "Intel RealSense D435 / D435i", "dims_mm": [90.0, 25.0, 25.0], "mounting_threads": ["1/4-20 UNC Tripod", "2x M3 at 45mm spacing"] }
+  },
+  "power_and_motor_drivers": {
+    "BUCK-LM2596": { "name": "LM2596 DC-DC Step-Down Converter", "dims_mm": [43.5, 21.0, 14.0], "holes_mm": { "dx": 31.5, "dy": 15.5, "dia": 3.0, "screw": "M2.5/M3" } },
+    "BUCK-MINI-360": { "name": "Mini-360 Ultra-Compact Buck Converter", "dims_mm": [17.5, 11.5, 3.8], "hole_pattern": "none - pad solder" },
+    "BUCK-XL4015": { "name": "XL4015 5A Constant Current/Voltage Buck", "dims_mm": [54.0, 24.0, 15.0], "holes_mm": { "dx": 46.0, "dy": 18.0, "dia": 3.2 } },
+    "DRIVER-A4988-STEPSTICK": { "name": "A4988 / TMC2209 StepStick Module", "dims_mm": [20.3, 15.2, 1.6], "pin_rows_spacing_mm": 12.7, "heatsink_height_mm": 9.0 },
+    "DRIVER-L298N-DUAL-H": { "name": "L298N Dual H-Bridge Motor Driver Module", "dims_mm": [43.5, 43.5, 27.0], "holes_mm": { "dx": 37.0, "dy": 37.0, "dia": 3.2, "screw": "M3" }, "heatsink_dims_mm": [24.0, 20.0, 23.0] }
+  }
+}

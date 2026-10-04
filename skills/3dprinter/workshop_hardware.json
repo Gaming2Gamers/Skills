@@ -1,0 +1,38 @@
+{
+  "version": "2.0.0",
+  "description": "Standard dimensions, drill holes, counterbores, and tolerances for 3D printed workshop hardware, threaded inserts, bearings, magnets, and nut traps",
+  "threaded_heat_set_inserts": {
+    "RUTHEX_M2": { "thread": "M2", "length_mm": 4.0, "outer_dia_mm": 3.6, "pilot_hole_pla_mm": 3.2, "pilot_hole_abs_mm": 3.3, "min_depth_mm": 4.8, "min_boss_od_mm": 5.6 },
+    "RUTHEX_M2_5": { "thread": "M2.5", "length_mm": 5.7, "outer_dia_mm": 4.6, "pilot_hole_pla_mm": 4.0, "pilot_hole_abs_mm": 4.1, "min_depth_mm": 6.5, "min_boss_od_mm": 7.0 },
+    "RUTHEX_M3_STANDARD": { "thread": "M3", "length_mm": 5.7, "outer_dia_mm": 4.6, "pilot_hole_pla_mm": 4.0, "pilot_hole_abs_mm": 4.15, "min_depth_mm": 6.5, "min_boss_od_mm": 7.2 },
+    "RUTHEX_M3_SHORT": { "thread": "M3", "length_mm": 3.0, "outer_dia_mm": 4.6, "pilot_hole_pla_mm": 4.0, "min_depth_mm": 3.8, "min_boss_od_mm": 7.0 },
+    "CNC_KITCHEN_M3": { "thread": "M3", "length_mm": 5.0, "outer_dia_mm": 4.6, "pilot_hole_pla_mm": 4.0, "min_depth_mm": 5.8, "min_boss_od_mm": 7.0 },
+    "RUTHEX_M4": { "thread": "M4", "length_mm": 8.1, "outer_dia_mm": 6.3, "pilot_hole_pla_mm": 5.6, "pilot_hole_abs_mm": 5.75, "min_depth_mm": 9.2, "min_boss_od_mm": 9.2 },
+    "RUTHEX_M5": { "thread": "M5", "length_mm": 9.5, "outer_dia_mm": 7.1, "pilot_hole_pla_mm": 6.4, "min_depth_mm": 10.8, "min_boss_od_mm": 11.0 }
+  },
+  "ball_bearings": {
+    "BEARING_608": { "name": "608 (Skateboard / Filament Spool)", "od_mm": 22.0, "id_mm": 8.0, "width_mm": 7.0, "pocket_press_fit_mm": 22.15, "pocket_slip_fit_mm": 22.35, "printed_shaft_mm": 7.85 },
+    "BEARING_688": { "name": "688 (Thin Section 8mm)", "od_mm": 16.0, "id_mm": 8.0, "width_mm": 5.0, "pocket_press_fit_mm": 16.15, "printed_shaft_mm": 7.85 },
+    "BEARING_624": { "name": "624 (4mm Bore Idler)", "od_mm": 13.0, "id_mm": 4.0, "width_mm": 5.0, "pocket_press_fit_mm": 13.15, "printed_shaft_mm": 3.90 },
+    "BEARING_625": { "name": "625 (5mm Bore V-Wheel)", "od_mm": 16.0, "id_mm": 5.0, "width_mm": 5.0, "pocket_press_fit_mm": 16.15, "printed_shaft_mm": 4.90 },
+    "BEARING_6000": { "name": "6000 (10mm Heavy Duty)", "od_mm": 26.0, "id_mm": 10.0, "width_mm": 8.0, "pocket_press_fit_mm": 26.2, "printed_shaft_mm": 9.85 }
+  },
+  "neodymium_magnets": {
+    "MAG_3x1": { "dia_mm": 3.0, "thick_mm": 1.0, "pocket_dia_mm": 3.15, "pocket_depth_mm": 1.15 },
+    "MAG_6x2": { "dia_mm": 6.0, "thick_mm": 2.0, "pocket_dia_mm": 6.20, "pocket_depth_mm": 2.15 },
+    "MAG_6x3": { "dia_mm": 6.0, "thick_mm": 3.0, "pocket_dia_mm": 6.20, "pocket_depth_mm": 3.20 },
+    "MAG_8x3": { "dia_mm": 8.0, "thick_mm": 3.0, "pocket_dia_mm": 8.25, "pocket_depth_mm": 3.20 },
+    "MAG_10x3": { "dia_mm": 10.0, "thick_mm": 3.0, "pocket_dia_mm": 10.25, "pocket_depth_mm": 3.20 },
+    "MAG_12x3": { "dia_mm": 12.0, "thick_mm": 3.0, "pocket_dia_mm": 12.30, "pocket_depth_mm": 3.20 }
+  },
+  "nut_traps_metric": {
+    "M2_HEX": { "width_across_flats_mm": 4.0, "thickness_mm": 1.6, "pocket_width_mm": 4.25, "pocket_depth_mm": 1.8 },
+    "M2_5_HEX": { "width_across_flats_mm": 5.0, "thickness_mm": 2.0, "pocket_width_mm": 5.30, "pocket_depth_mm": 2.2 },
+    "M3_HEX": { "width_across_flats_mm": 5.5, "thickness_mm": 2.4, "pocket_width_mm": 5.85, "pocket_depth_mm": 2.7 },
+    "M3_NYLOC": { "width_across_flats_mm": 5.5, "thickness_mm": 4.0, "pocket_width_mm": 5.85, "pocket_depth_mm": 4.3 },
+    "M4_HEX": { "width_across_flats_mm": 7.0, "thickness_mm": 3.2, "pocket_width_mm": 7.45, "pocket_depth_mm": 3.5 },
+    "M5_HEX": { "width_across_flats_mm": 8.0, "thickness_mm": 4.0, "pocket_width_mm": 8.50, "pocket_depth_mm": 4.4 },
+    "M6_HEX": { "width_across_flats_mm": 10.0, "thickness_mm": 5.0, "pocket_width_mm": 10.60, "pocket_depth_mm": 5.5 },
+    "M8_HEX": { "width_across_flats_mm": 13.0, "thickness_mm": 6.5, "pocket_width_mm": 13.75, "pocket_depth_mm": 7.0 }
+  }
+}

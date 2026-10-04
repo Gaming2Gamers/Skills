@@ -1,0 +1,45 @@
+{
+  "version": "2.0.0",
+  "description": "Standardized dimensional profiles for Gridfinity, Multiboard, and Honeycomb Storage Wall (HSW) modular tool storage ecosystems",
+  "gridfinity_standards": {
+    "grid_unit_size_mm": 42.0,
+    "grid_unit_clearance_mm": 0.5,
+    "effective_bin_unit_pitch_mm": 41.5,
+    "height_unit_size_mm": 7.0,
+    "stacking_lip": {
+      "overall_height_mm": 4.4,
+      "lower_chamfer_deg": 45.0,
+      "upper_chamfer_deg": 45.0,
+      "horizontal_ledge_mm": 0.8
+    },
+    "base_socket": {
+      "outer_chamfer_mm": 2.15,
+      "lower_chamfer_deg": 45.0,
+      "top_chamfer_deg": 45.0,
+      "corner_radius_mm": 4.0
+    },
+    "magnet_and_screw_pockets": {
+      "magnet_pocket_dia_mm": 6.5,
+      "magnet_pocket_depth_mm": 2.4,
+      "screw_hole_dia_mm": 3.2,
+      "screw_counterbore_dia_mm": 6.0,
+      "pocket_pitch_from_corner_mm": 8.0
+    }
+  },
+  "multiboard_standards": {
+    "grid_spacing_mm": 25.0,
+    "core_tile_thickness_mm": 6.0,
+    "peg_hole_type": "threaded_octagonal",
+    "peg_hole_outer_dia_mm": 13.0,
+    "peg_hole_thread_pitch_mm": 4.0,
+    "push_fit_slot_width_mm": 4.5
+  },
+  "honeycomb_storage_wall_hsw": {
+    "hex_across_flats_mm": 20.0,
+    "hex_point_to_point_mm": 23.09,
+    "wall_thickness_between_cells_mm": 2.5,
+    "panel_depth_mm": 8.0,
+    "insert_retention_lip_mm": 0.8,
+    "insert_tab_clearance_mm": 0.25
+  }
+}

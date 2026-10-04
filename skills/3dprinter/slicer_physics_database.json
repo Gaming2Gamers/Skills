@@ -1,0 +1,32 @@
+{
+  "version": "2.0.0",
+  "description": "Empirical thermal shrinkage compensation factors, per-material wall counts, TPU compression ratios, and slicer physics presets",
+  "thermal_shrinkage_rates": {
+    "PLA": { "xy_shrinkage_factor": 0.003, "z_shrinkage_factor": 0.001, "hole_expansion_compensation_mm": 0.12, "bed_temp_c": 60, "nozzle_temp_c": 210 },
+    "PETG": { "xy_shrinkage_factor": 0.005, "z_shrinkage_factor": 0.002, "hole_expansion_compensation_mm": 0.15, "bed_temp_c": 80, "nozzle_temp_c": 240 },
+    "ABS": { "xy_shrinkage_factor": 0.012, "z_shrinkage_factor": 0.004, "hole_expansion_compensation_mm": 0.25, "bed_temp_c": 105, "nozzle_temp_c": 255 },
+    "ASA": { "xy_shrinkage_factor": 0.014, "z_shrinkage_factor": 0.005, "hole_expansion_compensation_mm": 0.28, "bed_temp_c": 105, "nozzle_temp_c": 260 },
+    "PA_CF_NYLON": { "xy_shrinkage_factor": 0.004, "z_shrinkage_factor": 0.002, "hole_expansion_compensation_mm": 0.10, "bed_temp_c": 90, "nozzle_temp_c": 280 },
+    "TPU_95A": { "xy_shrinkage_factor": 0.008, "z_shrinkage_factor": 0.003, "hole_expansion_compensation_mm": -0.05, "bed_temp_c": 45, "nozzle_temp_c": 225 }
+  },
+  "tpu_compression_physics": {
+    "static_dust_and_water_seal": {
+      "nominal_compression_pct": 25.0,
+      "groove_depth_ratio": 0.75,
+      "groove_width_ratio": 1.25,
+      "recommended_shore_hardness": "95A or 85A"
+    },
+    "dynamic_sliding_wiper_seal": {
+      "nominal_compression_pct": 15.0,
+      "lip_interference_mm": 0.35
+    }
+  },
+  "functional_part_wall_counts": {
+    "snap_fit_enclosures": { "min_walls": 3, "top_bottom_layers": 4, "infill_pct": 20, "infill_type": "gyroid" },
+    "heat_set_insert_bosses": { "min_walls": 4, "top_bottom_layers": 5, "infill_pct": 30, "infill_type": "gyroid" },
+    "vacuum_and_dust_adapters": { "min_walls": 4, "top_bottom_layers": 4, "infill_pct": 25, "infill_type": "gyroid" },
+    "workshop_jigs_and_drills": { "min_walls": 5, "top_bottom_layers": 6, "infill_pct": 40, "infill_type": "cubic" },
+    "battery_wall_docks": { "min_walls": 4, "top_bottom_layers": 5, "infill_pct": 30, "infill_type": "gyroid" },
+    "gears_and_pulleys": { "min_walls": 5, "top_bottom_layers": 6, "infill_pct": 50, "infill_type": "concentric" }
+  }
+}

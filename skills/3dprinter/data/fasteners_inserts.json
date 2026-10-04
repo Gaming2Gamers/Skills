@@ -1,0 +1,86 @@
+{
+  "version": "1.0.0",
+  "description": "Verified 3D printing hole dimensions, counterbores, and minimum wall thicknesses for fasteners and heat-set inserts",
+  "heat_set_inserts": {
+    "RUTHEX-M2": {
+      "nominal_thread": "M2",
+      "insert_length_mm": 4.0,
+      "insert_outer_dia_mm": 3.6,
+      "print_pilot_hole_dia_mm": 3.2,
+      "print_pilot_hole_abs_dia_mm": 3.3,
+      "min_hole_depth_mm": 4.8,
+      "min_boss_outer_dia_mm": 5.6,
+      "taper_angle_deg": 8.0
+    },
+    "RUTHEX-M2_5": {
+      "nominal_thread": "M2.5",
+      "insert_length_mm": 5.7,
+      "insert_outer_dia_mm": 4.6,
+      "print_pilot_hole_dia_mm": 4.0,
+      "print_pilot_hole_abs_dia_mm": 4.1,
+      "min_hole_depth_mm": 6.5,
+      "min_boss_outer_dia_mm": 7.0
+    },
+    "RUTHEX-M3-STANDARD": {
+      "nominal_thread": "M3",
+      "insert_length_mm": 5.7,
+      "insert_outer_dia_mm": 4.6,
+      "print_pilot_hole_dia_mm": 4.0,
+      "print_pilot_hole_abs_dia_mm": 4.15,
+      "min_hole_depth_mm": 6.5,
+      "min_boss_outer_dia_mm": 7.2,
+      "recommended_iron_temp_pla_c": 220,
+      "recommended_iron_temp_petg_c": 240
+    },
+    "RUTHEX-M3-SHORT": {
+      "nominal_thread": "M3",
+      "insert_length_mm": 3.0,
+      "insert_outer_dia_mm": 4.6,
+      "print_pilot_hole_dia_mm": 4.0,
+      "min_hole_depth_mm": 3.8,
+      "min_boss_outer_dia_mm": 7.0
+    },
+    "CNC-KITCHEN-M3-STANDARD": {
+      "nominal_thread": "M3",
+      "insert_length_mm": 5.0,
+      "insert_outer_dia_mm": 4.6,
+      "print_pilot_hole_dia_mm": 4.0,
+      "min_hole_depth_mm": 5.8,
+      "min_boss_outer_dia_mm": 7.0
+    },
+    "RUTHEX-M4": {
+      "nominal_thread": "M4",
+      "insert_length_mm": 8.1,
+      "insert_outer_dia_mm": 6.3,
+      "print_pilot_hole_dia_mm": 5.6,
+      "print_pilot_hole_abs_dia_mm": 5.75,
+      "min_hole_depth_mm": 9.2,
+      "min_boss_outer_dia_mm": 9.2
+    },
+    "RUTHEX-M5": {
+      "nominal_thread": "M5",
+      "insert_length_mm": 9.5,
+      "insert_outer_dia_mm": 7.1,
+      "print_pilot_hole_dia_mm": 6.4,
+      "min_hole_depth_mm": 10.8,
+      "min_boss_outer_dia_mm": 11.0
+    }
+  },
+  "magnets": {
+    "MAG-6x2": { "shape": "disc", "dia_mm": 6.0, "thickness_mm": 2.0, "print_pocket_dia_mm": 6.2, "print_pocket_depth_mm": 2.2 },
+    "MAG-6x3": { "shape": "disc", "dia_mm": 6.0, "thickness_mm": 3.0, "print_pocket_dia_mm": 6.2, "print_pocket_depth_mm": 3.2 },
+    "MAG-8x3": { "shape": "disc", "dia_mm": 8.0, "thickness_mm": 3.0, "print_pocket_dia_mm": 8.25, "print_pocket_depth_mm": 3.2 },
+    "MAG-10x3": { "shape": "disc", "dia_mm": 10.0, "thickness_mm": 3.0, "print_pocket_dia_mm": 10.25, "print_pocket_depth_mm": 3.2 }
+  },
+  "bearings": {
+    "BEARING-608": {
+      "name": "608 Skateboard / 3D Printer Bearing",
+      "outer_dia_mm": 22.0,
+      "inner_bore_mm": 8.0,
+      "width_mm": 7.0,
+      "press_fit_pocket_dia_mm": 22.15,
+      "slip_fit_pocket_dia_mm": 22.35,
+      "printed_shaft_dia_mm": 7.85
+    }
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "engineering_tolerances_mm": {
+    "press_fit_interference": {
+      "diametral_gap_mm": -0.10,
+      "description": "Requires vise or arbor press pressure. Permanently seats metal ball bearings, dowel pins, or bushings. Plastic elastically deforms to grip hardware.",
+      "applications": ["608 skate bearings", "dowel pins", "bushing retention"]
+    },
+    "snug_fit_transition": {
+      "diametral_gap_mm": 0.05,
+      "description": "Parts slide together with light manual finger friction and maintain stationary position.",
+      "applications": ["friction-fit enclosure lids", "alignment dowels", "removable caps"]
+    },
+    "sliding_fit_close_running": {
+      "diametral_gap_mm": 0.15,
+      "description": "Smooth gliding motion without mechanical binding or lateral slop.",
+      "applications": ["modular drawer rails", "tight mechanical hinges", "telescoping arms"]
+    },
+    "free_fit_loose_running": {
+      "diametral_gap_mm": 0.35,
+      "description": "Guarantees zero binding across layer-line thermal variance.",
+      "applications": ["print-in-place rotating axles", "gear shafts", "foldable articulated phone stands"]
+    }
+  },
+  "crush_ribs_specification": {
+    "purpose": "Prevents radial hoop stress cracking and perimeter layer delamination when pressing metal hardware into circular bores.",
+    "rib_count": 4,
+    "rib_radial_protrusion_mm": 0.20,
+    "rib_width_mm": 0.60,
+    "lead_in_chamfer_deg": 30.0,
+    "formula_openscad": "module crush_rib_bore(dia, h, ribs=4, rib_t=0.2, rib_w=0.6) { difference() { children(); union() { cylinder(d=dia+0.05, h=h+0.2, center=true); for (i=[0:ribs-1]) rotate([0,0,i*360/ribs]) translate([dia/2 - rib_t/2, 0, 0]) cube([rib_t, rib_w, h+0.2], center=true); } } }"
+  },
+  "materials_matrix": {
+    "PLA": {
+      "tensile_strength_mpa": "50-70",
+      "glass_transition_temp_c": 55,
+      "elongation_at_break_pct": 3.5,
+      "impact_resistance": "Low (Brittle)",
+      "creep_resistance": "Poor (viscoelastic cold creep; sags under sustained shelf/spring load)",
+      "annealing": "Bake in convection oven at 60-80°C for 2h to induce semi-crystalline phase (HDT >100°C). Apply +1.8% X/Y scale compensation in CAD."
+    },
+    "PETG": {
+      "tensile_strength_mpa": "45-55",
+      "glass_transition_temp_c": 82,
+      "elongation_at_break_pct": 17.5,
+      "impact_resistance": "High (Ductile; 2.7x Izod energy absorption over PLA)",
+      "creep_resistance": "Moderate (resists ambient sagging)",
+      "applications": ["Watertight self-watering planters", "workshop jigs", "drone arms", "fluid fittings"]
+    },
+    "ABS_ASA": {
+      "tensile_strength_mpa": "35-45",
+      "glass_transition_temp_c": 105,
+      "elongation_at_break_pct": 25.0,
+      "impact_resistance": "Very High (plastic deformation)",
+      "chamber_temp_required_c": "35-50",
+      "applications": ["Automotive exterior parts (ASA UV)", "printer enclosures", "high-heat mounts"]
+    },
+    "TPU_95A": {
+      "tensile_strength_mpa": "25-50",
+      "glass_transition_temp_c": 45,
+      "elongation_at_break_pct": 520.0,
+      "impact_resistance": "Extreme (elastomeric)",
+      "nozzle_recommendation": "Direct-drive with 0.6mm or 0.8mm nozzle to prevent backpressure buckling",
+      "applications": ["Vibration dampening feet", "gaskets", "virtually infinite-cycle living hinges"]
+    },
+    "PC": {
+      "tensile_strength_mpa": "65-72",
+      "glass_transition_temp_c": 147,
+      "elongation_at_break_pct": 12.0,
+      "impact_resistance": "Exceptional",
+      "applications": ["Extreme mechanical stress", "gearboxes", "thermal barrier plates"]
+    }
+  },
+  "dfam_rules": {
+    "wall_count_over_infill": "6 solid perimeters + 20% gyroid infill yields superior flexural, torsional, and impact strength compared to 2 perimeters + 100% rectilinear infill while saving 30% print time.",
+    "stress_concentration_fillets": "Sharp 90° internal corners act as stress risers and generate deposition voids. Mandatory internal fillet radius R >= 1.5mm - 3.0mm to eliminate micro-crack propagation along layer lines.",
+    "anisotropy_management": "FDM tensile strength along Z-axis is only 65-72% of XY injection molded baseline. Orient structural cantilever loads parallel to XY layer planes to put Z-axis in compression.",
+    "food_safe_3_step_protocol": [
+      "1. Stainless Steel Nozzle: Replace standard brass nozzles to prevent lead contamination from brass alloys.",
+      "2. Uncolored Natural Filament: Print exclusively with unpigmented raw PETG/PLA to avoid heavy-metal or toxic masterbatch chemical dyes.",
+      "3. Food-Grade Epoxy Seal: Apply FDA-compliant, BPA-free two-part epoxy resin to permanently seal microscopic FDM layer grooves against bacterial colonization."
+    ]
+  },
+  "orcaslicer_advanced_features": {
+    "scarf_seams": "Dynamically tapers extrusion flow rate and Z-height over a 20mm transition slope, eliminating visible Z-seam blobs on functional cylinders, pipes, and pressurized fluid adapters.",
+    "sandwich_mode": "Inner-Outer-Inner wall order securely anchors precarious steep overhang perimeters between two stable inner shells, preventing thermal curl-up on aggressive overhangs.",
+    "pressure_advance_and_input_shaping": "Eliminates high-speed 600mm/s CoreXY corner bulging and cancels motor resonance ringing via accelerometer resonance compensation."
+  }
+}

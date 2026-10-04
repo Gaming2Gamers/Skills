@@ -1,0 +1,71 @@
+{
+  "version": "2.1.0",
+  "description": "Complete mechanical blueprints, bills of materials (BOM), print parameters, and assembly instructions for printable robotics projects with Budget Amazon & STEM Kids modes",
+  "projects": {
+    "KIDS_STEM_MINI_ARM_UNDER_25": {
+      "name": "Kids & STEM 4-DOF Mini Robot Arm (Under $25 Total)",
+      "description": "Accessible, kid-friendly 4-axis desktop robotic arm designed 100% around cheap Amazon $1.50 micro servos (SG90 / MG90S) and standard nylon horn snap-pockets. Perfect for classrooms, beginners, and weekend parent-child maker builds!",
+      "target_age_group": "Kids 8+, Middle/High School STEM, Hobby Beginners",
+      "estimated_cost_usd": 24.50,
+      "bom_amazon_budget": [
+        { "item": "TowerPro SG90 or MG90S 9g Micro Servos (Amazon 6-Pack)", "cost_usd": 9.99, "qty": 4, "vendor": "Amazon multipack" },
+        { "item": "Arduino Nano V3 (or ESP32 NodeMCU 30P)", "cost_usd": 4.50, "qty": 1, "vendor": "Amazon / AliExpress" },
+        { "item": "Dual Axis Analog Thumbstick Joystick Module", "cost_usd": 2.50, "qty": 2, "vendor": "Amazon" },
+        { "item": "4x AA Battery Holder with 5V switch", "cost_usd": 2.50, "qty": 1 },
+        { "item": "Assorted M2x8mm and M3x10mm Pan Head Screws", "cost_usd": 3.00, "qty": 16 },
+        { "item": "White Nylon Servo Horns (Included FREE inside the Amazon servo baggies!)", "cost_usd": 0.00, "qty": 4 }
+      ],
+      "sub_assemblies": [
+        "BASE_PAN_TURNTABLE_SG90",
+        "SHOULDER_BICEP_LINK_SG90",
+        "ELBOW_FOREARM_LINK_SG90",
+        "MICRO_SERVO_PARALLEL_CLAW"
+      ],
+      "print_recommendation": { "material": "PLA (Kid-friendly, non-toxic, bright colors)", "walls": 3, "infill_pct": 20, "print_time_hours": 3.5 }
+    },
+    "KIDS_STEM_AUTONOMOUS_ROVER_UNDER_30": {
+      "name": "Kids & STEM Obstacle-Avoiding Rover (Under $30 Total)",
+      "description": "Dual-motor autonomous smart rover that avoids walls using a sweeping ultrasonic radar head on an SG90 servo. Driven by standard yellow TT gearbox motors available everywhere on Amazon.",
+      "estimated_cost_usd": 28.00,
+      "bom_amazon_budget": [
+        { "item": "Yellow Dual-Shaft TT Gearbox Motors with Rubber Wheels (Pair)", "cost_usd": 6.99, "qty": 2, "vendor": "Amazon" },
+        { "item": "TowerPro SG90 9g Micro Servo (Ultrasonic Scanner Neck)", "cost_usd": 2.00, "qty": 1 },
+        { "item": "HC-SR04 Ultrasonic Distance Sensor", "cost_usd": 2.50, "qty": 1 },
+        { "item": "L298N Dual H-Bridge Motor Driver Module", "cost_usd": 3.99, "qty": 1 },
+        { "item": "Arduino Uno R3 or Nano V3", "cost_usd": 5.50, "qty": 1 },
+        { "item": "1-Inch Ball Caster Wheel or Snap-Fit Printable Skid Ball", "cost_usd": 2.00, "qty": 1 },
+        { "item": "4x AA or 2x 18650 Battery Holder", "cost_usd": 3.00, "qty": 1 }
+      ],
+      "sub_assemblies": [
+        "SNAP_FIT_TT_MOTOR_CHASSIS",
+        "SWEEPING_ULTRASONIC_HEAD_MOUNT",
+        "CLICK_IN_BATTERY_CRADLE",
+        "ARDUINO_L298N_MOUNTING_DECK"
+      ]
+    },
+    "AUTONOMOUS_ROVER_CHASSIS": {
+      "name": "The Autonomous Mobile Base (LiDAR Rover Pro)",
+      "description": "Differential-drive autonomous robotic chassis with 360-degree elevated LiDAR turret, dual motor mounts, swappable power-tool battery tray, and stacked SBC decks.",
+      "dimensions_mm": [220.0, 180.0, 110.0],
+      "bom": [
+        { "item": "Slamtec RPLiDAR C1 or A1", "qty": 1, "mount": "Elevated Top Turret" },
+        { "item": "Raspberry Pi 5 or Orange Pi 5", "qty": 1, "mount": "Deck 1 (Middle)" },
+        { "item": "Sabertooth 2x32 or L298N Motor Driver", "qty": 1, "mount": "Deck 0 (Lower)" },
+        { "item": "Yellow TT Geared Motors or 12V Planetary Motors", "qty": 2 },
+        { "item": "1-Inch Ball Transfer Caster Wheel", "qty": 1 },
+        { "item": "Milwaukee M18 or 3S LiPo Battery", "qty": 1 },
+        { "item": "M3x5.7mm Ruthex Heat-Set Inserts", "qty": 24 }
+      ]
+    },
+    "EXPRESSIVE_PAN_TILT_NECK": {
+      "name": "2-DOF Expressive Somatic Head & Camera Turret",
+      "description": "Dual servo pan-tilt animatronic neck assembly for expressive companion avatar gaze, head nodding/shaking, and tracking stereo cameras. Works with either cheap Amazon SG90/MG90S servos or heavy-duty MG996R servos.",
+      "degrees_of_freedom": 2,
+      "actuator_compatibility": ["Amazon SG90 (Lightweight)", "Amazon MG90S (Metal Gear)", "Amazon MG996R (Heavy Duty)"]
+    },
+    "OPENARM_7DOF_KINEMATIC_LINK": {
+      "name": "OpenArm 7-DOF Kinematic Robot Arm Joint (Pro Maker Edition)",
+      "description": "Bespoke high-performance 7-DOF robot arm link with DaMiao MIT CAN direct-drive actuators or SteadyWin TT4510 memory-mapped actuators, internal wire conduits, and dual bearing supports."
+    }
+  }
+}

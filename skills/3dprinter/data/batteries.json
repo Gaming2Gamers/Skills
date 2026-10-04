@@ -1,0 +1,62 @@
+{
+  "version": "1.0.0",
+  "description": "Verified CAD mechanical dimensions for power tool battery slide docks, latches, and terminal contacts",
+  "battery_docks": {
+    "DOCK-MIL-M18": {
+      "name": "Milwaukee M18 RedLithium Slide Dock",
+      "rail": {
+        "outside_rail_width_mm": 44.5,
+        "inside_slot_width_mm": 37.0,
+        "rail_slot_thickness_mm": 3.8,
+        "rail_lip_thickness_mm": 3.2,
+        "overall_slide_length_mm": 75.0,
+        "lead_in_chamfer_deg": 45.0
+      },
+      "latch": {
+        "catch_notch_offset_from_front_mm": 38.5,
+        "catch_notch_width_mm": 12.0,
+        "catch_notch_depth_mm": 2.5
+      },
+      "terminals": {
+        "blade_type": "standard_0.25in_spade",
+        "blade_pitch_mm": 18.0,
+        "blade_height_mm": 14.0
+      }
+    },
+    "DOCK-DEWALT-20V": {
+      "name": "DeWalt 20V Max / XR Slide Dock",
+      "rail": {
+        "dovetail_width_top_mm": 38.0,
+        "dovetail_width_base_mm": 42.0,
+        "dovetail_angle_deg": 45.0,
+        "rail_height_mm": 5.0,
+        "overall_slide_length_mm": 72.0
+      },
+      "latch": {
+        "center_locking_window_width_mm": 15.0,
+        "locking_window_depth_mm": 8.0,
+        "offset_from_rear_mm": 28.0
+      }
+    },
+    "DOCK-MAKITA-18V": {
+      "name": "Makita 18V LXT Slide Dock",
+      "rail": {
+        "outside_rail_width_mm": 43.0,
+        "rail_slot_thickness_mm": 3.4,
+        "overall_slide_length_mm": 80.0
+      },
+      "latch": {
+        "yellow_terminal_block_keepout_width_mm": 22.0,
+        "yellow_terminal_block_keepout_height_mm": 18.0
+      }
+    },
+    "DOCK-RYOBI-18V": {
+      "name": "Ryobi ONE+ 18V Stem Mount",
+      "stem": {
+        "stem_outer_dia_mm": 27.5,
+        "stem_height_mm": 48.0,
+        "latch_detent_offsets_mm": [12.0, 36.0]
+      }
+    }
+  }
+}

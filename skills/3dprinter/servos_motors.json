@@ -1,0 +1,106 @@
+{
+  "version": "1.0.0",
+  "description": "Verified CAD mechanical dimensions for servos, stepper motors, and robotic actuators",
+  "actuators": {
+    "SERVO-SG90": {
+      "name": "TowerPro SG90 / MG90S 9g Micro Servo",
+      "category": "Micro Servo",
+      "body_dim_mm": [22.8, 12.2, 22.8],
+      "flange": {
+        "length_mm": 32.5,
+        "width_mm": 12.2,
+        "thickness_mm": 2.5,
+        "mounting_hole_pitch_mm": 28.0,
+        "hole_dia_mm": 2.0,
+        "recommended_screw": "M2x8 Self-Tapping"
+      },
+      "shaft": {
+        "offset_from_front_mm": 5.8,
+        "spline_dia_mm": 4.8,
+        "horn_height_mm": 4.2
+      },
+      "wire_exit": {
+        "side": "bottom_rear",
+        "slot_width_mm": 4.5,
+        "slot_height_mm": 3.0
+      }
+    },
+    "SERVO-MG996R": {
+      "name": "TowerPro MG996R / MG995 Standard Metal Gear Servo",
+      "category": "Standard Servo",
+      "body_dim_mm": [40.7, 19.7, 36.5],
+      "flange": {
+        "length_mm": 54.0,
+        "width_mm": 20.0,
+        "thickness_mm": 4.2,
+        "mounting_hole_pattern": "4_corner",
+        "dx_mm": 48.5,
+        "dy_mm": 10.0,
+        "hole_dia_mm": 4.4,
+        "recommended_screw": "M3 or M4 with rubber grommets"
+      },
+      "shaft": {
+        "offset_from_front_mm": 10.0,
+        "spline_dia_mm": 5.9,
+        "horn_height_mm": 6.0
+      }
+    },
+    "MOTOR-NEMA17": {
+      "name": "NEMA 17 Stepper Motor (Faceplate Standard)",
+      "category": "Stepper Motor",
+      "faceplate_mm": [42.3, 42.3],
+      "depths_available_mm": [34.0, 40.0, 48.0],
+      "pilot_boss": {
+        "dia_mm": 22.0,
+        "height_mm": 2.0
+      },
+      "mounting_holes": {
+        "pattern": "square",
+        "spacing_mm": 31.04,
+        "thread": "M3 x 0.5",
+        "min_thread_depth_mm": 4.5,
+        "thru_hole_clearance_dia_mm": 3.4
+      },
+      "shaft": {
+        "dia_mm": 5.0,
+        "length_mm": 24.0,
+        "d_cut_depth_mm": 0.5,
+        "d_cut_length_mm": 15.0
+      }
+    },
+    "MOTOR-NEMA23": {
+      "name": "NEMA 23 Stepper Motor (Faceplate Standard)",
+      "category": "Stepper Motor",
+      "faceplate_mm": [56.4, 56.4],
+      "pilot_boss": {
+        "dia_mm": 38.1,
+        "height_mm": 1.6
+      },
+      "mounting_holes": {
+        "pattern": "square",
+        "spacing_mm": 47.14,
+        "hole_dia_mm": 5.2,
+        "recommended_screw": "M5"
+      },
+      "shaft": {
+        "dia_mm": 6.35,
+        "length_mm": 20.6
+      }
+    },
+    "SERVO-DYNAMIXEL-XM430": {
+      "name": "Robotis Dynamixel XM430-W350 Smart Actuator",
+      "category": "Robotic Smart Actuator",
+      "body_dim_mm": [28.5, 46.5, 34.0],
+      "mounting_holes": {
+        "pattern": "grid_m2_5",
+        "thread": "M2.5",
+        "face_hole_spacing_mm": [22.0, 22.0]
+      },
+      "horn": {
+        "bolt_circle_dia_mm": 16.0,
+        "hole_count": 8,
+        "thread": "M2.5"
+      }
+    }
+  }
+}

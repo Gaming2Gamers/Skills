@@ -1,0 +1,37 @@
+{
+  "version": "2.0.0",
+  "description": "Standard dimensions, AS568 dash numbers, groove design ratios, and compression physics for 3D printed TPU gaskets and O-rings",
+  "as568_standard_o_rings": {
+    "DASH_010": { "inner_dia_mm": 6.07, "cross_section_mm": 1.78, "groove_depth_mm": 1.35, "groove_width_mm": 2.30 },
+    "DASH_014": { "inner_dia_mm": 12.42, "cross_section_mm": 1.78, "groove_depth_mm": 1.35, "groove_width_mm": 2.30 },
+    "DASH_110": { "inner_dia_mm": 9.19, "cross_section_mm": 2.62, "groove_depth_mm": 2.00, "groove_width_mm": 3.40 },
+    "DASH_114": { "inner_dia_mm": 15.54, "cross_section_mm": 2.62, "groove_depth_mm": 2.00, "groove_width_mm": 3.40 },
+    "DASH_210": { "inner_dia_mm": 18.64, "cross_section_mm": 3.53, "groove_depth_mm": 2.70, "groove_width_mm": 4.60 },
+    "DASH_222": { "inner_dia_mm": 37.69, "cross_section_mm": 3.53, "groove_depth_mm": 2.70, "groove_width_mm": 4.60 },
+    "DASH_325": { "inner_dia_mm": 37.47, "cross_section_mm": 5.33, "groove_depth_mm": 4.10, "groove_width_mm": 7.00 }
+  },
+  "tpu_groove_design_rules": {
+    "static_flange_seal": {
+      "compression_ratio_pct": 25.0,
+      "groove_depth_ratio": 0.75,
+      "groove_width_ratio": 1.25,
+      "fillet_radius_mm": 0.4
+    },
+    "dynamic_piston_or_rod_seal": {
+      "compression_ratio_pct": 15.0,
+      "groove_depth_ratio": 0.85,
+      "groove_width_ratio": 1.15
+    },
+    "crush_rib_geometry": {
+      "rib_height_mm": 0.5,
+      "rib_width_tip_mm": 0.4,
+      "rib_included_angle_deg": 60.0
+    }
+  },
+  "flat_flange_gaskets": {
+    "bolt_hole_clearance_mm": 0.8,
+    "min_web_between_hole_and_edge_mm": 3.5,
+    "recommended_thickness_mm": 1.8,
+    "recommended_durometer": "TPU 95A or 85A"
+  }
+}

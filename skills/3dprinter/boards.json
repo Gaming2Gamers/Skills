@@ -1,0 +1,202 @@
+{
+  "version": "1.0.0",
+  "description": "Verified CAD mechanical dimensions and keepouts for electronics boards and microcontrollers",
+  "boards": {
+    "RPI-5-B": {
+      "name": "Raspberry Pi 5 Model B",
+      "category": "SBC",
+      "board_dim_mm": [85.0, 56.0, 1.6],
+      "mounting_holes": {
+        "pattern": "rectangular",
+        "dx_mm": 58.0,
+        "dy_mm": 49.0,
+        "offset_origin_mm": [3.5, 3.5],
+        "hole_dia_mm": 2.75,
+        "recommended_screw": "M2.5",
+        "corner_radius_mm": 3.0
+      },
+      "ports": [
+        { "name": "USB-C Power", "wall": "bottom", "x_center_mm": 11.2, "width_mm": 9.2, "height_mm": 3.4, "z_offset_mm": 1.6 },
+        { "name": "Micro HDMI 0", "wall": "bottom", "x_center_mm": 26.0, "width_mm": 7.5, "height_mm": 3.8, "z_offset_mm": 1.6 },
+        { "name": "Micro HDMI 1", "wall": "bottom", "x_center_mm": 39.5, "width_mm": 7.5, "height_mm": 3.8, "z_offset_mm": 1.6 },
+        { "name": "Dual USB 2.0", "wall": "right", "y_center_mm": 17.5, "width_mm": 14.5, "height_mm": 16.0, "z_offset_mm": 1.6 },
+        { "name": "Dual USB 3.0", "wall": "right", "y_center_mm": 35.5, "width_mm": 14.5, "height_mm": 16.0, "z_offset_mm": 1.6 },
+        { "name": "Gigabit Ethernet", "wall": "right", "y_center_mm": 47.0, "width_mm": 16.0, "height_mm": 14.0, "z_offset_mm": 1.6 },
+        { "name": "MicroSD Card", "wall": "left", "y_center_mm": 28.0, "width_mm": 12.0, "height_mm": 2.0, "z_offset_mm": -1.8 }
+      ],
+      "thermal_keepout": {
+        "fan_mount_spacing_mm": [42.0, 42.0],
+        "requires_active_cooling": true
+      }
+    },
+    "RPI-4-B": {
+      "name": "Raspberry Pi 4 Model B",
+      "category": "SBC",
+      "board_dim_mm": [85.0, 56.0, 1.4],
+      "mounting_holes": {
+        "pattern": "rectangular",
+        "dx_mm": 58.0,
+        "dy_mm": 49.0,
+        "offset_origin_mm": [3.5, 3.5],
+        "hole_dia_mm": 2.75,
+        "recommended_screw": "M2.5",
+        "corner_radius_mm": 3.0
+      },
+      "ports": [
+        { "name": "USB-C Power", "wall": "bottom", "x_center_mm": 11.2, "width_mm": 9.2, "height_mm": 3.4, "z_offset_mm": 1.4 },
+        { "name": "Micro HDMI 0", "wall": "bottom", "x_center_mm": 26.0, "width_mm": 7.5, "height_mm": 3.8, "z_offset_mm": 1.4 },
+        { "name": "Micro HDMI 1", "wall": "bottom", "x_center_mm": 39.5, "width_mm": 7.5, "height_mm": 3.8, "z_offset_mm": 1.4 },
+        { "name": "Gigabit Ethernet", "wall": "right", "y_center_mm": 10.5, "width_mm": 16.0, "height_mm": 14.0, "z_offset_mm": 1.4 },
+        { "name": "Dual USB 3.0", "wall": "right", "y_center_mm": 27.0, "width_mm": 14.5, "height_mm": 16.0, "z_offset_mm": 1.4 },
+        { "name": "Dual USB 2.0", "wall": "right", "y_center_mm": 45.0, "width_mm": 14.5, "height_mm": 16.0, "z_offset_mm": 1.4 },
+        { "name": "MicroSD Card", "wall": "left", "y_center_mm": 28.0, "width_mm": 12.0, "height_mm": 2.0, "z_offset_mm": -1.8 }
+      ]
+    },
+    "RPI-ZERO-2W": {
+      "name": "Raspberry Pi Zero / Zero 2 W",
+      "category": "SBC",
+      "board_dim_mm": [65.0, 30.0, 1.4],
+      "mounting_holes": {
+        "pattern": "rectangular",
+        "dx_mm": 58.0,
+        "dy_mm": 23.0,
+        "offset_origin_mm": [3.5, 3.5],
+        "hole_dia_mm": 2.75,
+        "recommended_screw": "M2.5",
+        "corner_radius_mm": 3.0
+      },
+      "ports": [
+        { "name": "Micro USB Power", "wall": "bottom", "x_center_mm": 54.0, "width_mm": 8.0, "height_mm": 3.2, "z_offset_mm": 1.4 },
+        { "name": "Micro USB OTG", "wall": "bottom", "x_center_mm": 41.4, "width_mm": 8.0, "height_mm": 3.2, "z_offset_mm": 1.4 },
+        { "name": "Mini HDMI", "wall": "bottom", "x_center_mm": 12.4, "width_mm": 11.5, "height_mm": 3.5, "z_offset_mm": 1.4 },
+        { "name": "MicroSD Card", "wall": "left", "y_center_mm": 15.0, "width_mm": 12.0, "height_mm": 2.0, "z_offset_mm": -1.5 }
+      ]
+    },
+    "ESP32-DEV-30P": {
+      "name": "ESP32 NodeMCU DevKit (30-Pin)",
+      "category": "Microcontroller",
+      "board_dim_mm": [51.5, 28.5, 1.6],
+      "mounting_holes": {
+        "pattern": "rectangular",
+        "dx_mm": 46.5,
+        "dy_mm": 23.5,
+        "offset_origin_mm": [2.5, 2.5],
+        "hole_dia_mm": 3.0,
+        "recommended_screw": "M2.5 or M3",
+        "corner_radius_mm": 2.0
+      },
+      "ports": [
+        { "name": "Micro USB / USB-C", "wall": "left", "y_center_mm": 14.25, "width_mm": 9.5, "height_mm": 4.0, "z_offset_mm": 1.6 }
+      ],
+      "pin_headers": {
+        "dual_inline_spacing_mm": 25.4,
+        "pin_pitch_mm": 2.54,
+        "num_pins": 30
+      }
+    },
+    "ESP32-DEV-38P": {
+      "name": "ESP32 WROOM-32 DevKit V1 (38-Pin)",
+      "category": "Microcontroller",
+      "board_dim_mm": [54.5, 28.0, 1.6],
+      "mounting_holes": {
+        "pattern": "rectangular",
+        "dx_mm": 49.5,
+        "dy_mm": 23.0,
+        "offset_origin_mm": [2.5, 2.5],
+        "hole_dia_mm": 3.0,
+        "recommended_screw": "M2.5 or M3",
+        "corner_radius_mm": 2.0
+      },
+      "ports": [
+        { "name": "Micro USB", "wall": "left", "y_center_mm": 14.0, "width_mm": 9.0, "height_mm": 3.8, "z_offset_mm": 1.6 }
+      ],
+      "pin_headers": {
+        "dual_inline_spacing_mm": 25.4,
+        "pin_pitch_mm": 2.54,
+        "num_pins": 38
+      }
+    },
+    "ESP32-S3-DEVKITC-1": {
+      "name": "ESP32-S3-DevKitC-1 Dual Type-C",
+      "category": "Microcontroller",
+      "board_dim_mm": [70.0, 31.8, 1.6],
+      "mounting_holes": {
+        "pattern": "rectangular",
+        "dx_mm": 64.0,
+        "dy_mm": 25.8,
+        "offset_origin_mm": [3.0, 3.0],
+        "hole_dia_mm": 3.0,
+        "recommended_screw": "M2.5 or M3"
+      },
+      "ports": [
+        { "name": "USB-C UART", "wall": "left", "y_center_mm": 10.5, "width_mm": 9.5, "height_mm": 4.0, "z_offset_mm": 1.6 },
+        { "name": "USB-C OTG", "wall": "left", "y_center_mm": 21.3, "width_mm": 9.5, "height_mm": 4.0, "z_offset_mm": 1.6 }
+      ]
+    },
+    "ARD-UNO-R3": {
+      "name": "Arduino Uno R3 / R4 Minima",
+      "category": "Microcontroller",
+      "board_dim_mm": [68.6, 53.4, 1.6],
+      "mounting_holes": {
+        "pattern": "custom_offsets",
+        "holes": [
+          { "id": "H1", "pos_mm": [14.0, 2.5], "dia_mm": 3.2 },
+          { "id": "H2", "pos_mm": [66.1, 7.6], "dia_mm": 3.2 },
+          { "id": "H3", "pos_mm": [66.1, 35.6], "dia_mm": 3.2 },
+          { "id": "H4", "pos_mm": [15.3, 50.8], "dia_mm": 3.2 }
+        ],
+        "recommended_screw": "M3"
+      },
+      "ports": [
+        { "name": "USB Type-B / Type-C", "wall": "left", "y_center_mm": 43.5, "width_mm": 13.0, "height_mm": 12.0, "z_offset_mm": 1.6 },
+        { "name": "DC Barrel Jack", "wall": "left", "y_center_mm": 10.0, "width_mm": 10.0, "height_mm": 11.5, "z_offset_mm": 1.6 }
+      ]
+    },
+    "ARD-NANO-V3": {
+      "name": "Arduino Nano V3 / Every",
+      "category": "Microcontroller",
+      "board_dim_mm": [45.0, 18.0, 1.6],
+      "mounting_holes": {
+        "pattern": "none",
+        "description": "Friction fit or pin-header cradle"
+      },
+      "ports": [
+        { "name": "Mini-B / Type-C", "wall": "left", "y_center_mm": 9.0, "width_mm": 9.2, "height_mm": 4.2, "z_offset_mm": 1.6 }
+      ],
+      "pin_headers": {
+        "dual_inline_spacing_mm": 15.24,
+        "pin_pitch_mm": 2.54,
+        "num_pins": 30
+      }
+    },
+    "BTT-SKR-MINI-E3-V3": {
+      "name": "BigTreeTech SKR Mini E3 V3.0",
+      "category": "3D Printer Mainboard",
+      "board_dim_mm": [100.0, 70.2, 1.6],
+      "mounting_holes": {
+        "pattern": "rectangular",
+        "dx_mm": 92.5,
+        "dy_mm": 62.7,
+        "offset_origin_mm": [3.75, 3.75],
+        "hole_dia_mm": 3.2,
+        "recommended_screw": "M3"
+      },
+      "ports": [
+        { "name": "Micro USB", "wall": "left", "y_center_mm": 24.5, "width_mm": 9.0, "height_mm": 4.0, "z_offset_mm": 1.6 },
+        { "name": "MicroSD Slot", "wall": "left", "y_center_mm": 43.0, "width_mm": 14.0, "height_mm": 2.5, "z_offset_mm": 1.6 }
+      ]
+    },
+    "SEEED-XIAO": {
+      "name": "Seeed Studio XIAO (ESP32-S3 / RP2040 / SAMD21)",
+      "category": "Microcontroller",
+      "board_dim_mm": [21.0, 17.5, 1.2],
+      "mounting_holes": {
+        "pattern": "none",
+        "description": "Snap-fit carrier clip"
+      },
+      "ports": [
+        { "name": "USB-C", "wall": "left", "y_center_mm": 8.75, "width_mm": 9.2, "height_mm": 3.4, "z_offset_mm": 1.2 }
+      ]
+    }
+  }
+}

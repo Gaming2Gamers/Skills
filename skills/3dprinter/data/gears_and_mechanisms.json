@@ -1,0 +1,46 @@
+{
+  "version": "2.0.0",
+  "description": "Kinematic equations, tooth geometry, and dimensional standards for GT2 timing pulleys, involute gears, double-helical herringbone gears, and compliant flexures",
+  "gt2_timing_pulleys": {
+    "pitch_mm": 2.0,
+    "tooth_height_mm": 0.76,
+    "pitch_line_differential_pld_mm": 0.254,
+    "formulas": {
+      "pitch_diameter_mm": "(teeth * 2.0) / 3.14159265",
+      "outside_diameter_mm": "((teeth * 2.0) / 3.14159265) - (2 * 0.254)"
+    },
+    "standard_pulleys": {
+      "GT2_16T": { "teeth": 16, "pitch_dia_mm": 10.19, "outside_dia_mm": 9.68, "flange_dia_mm": 13.0 },
+      "GT2_20T": { "teeth": 20, "pitch_dia_mm": 12.73, "outside_dia_mm": 12.22, "flange_dia_mm": 16.0 },
+      "GT2_36T": { "teeth": 36, "pitch_dia_mm": 22.92, "outside_dia_mm": 22.41, "flange_dia_mm": 26.0 },
+      "GT2_60T": { "teeth": 60, "pitch_dia_mm": 38.20, "outside_dia_mm": 37.69, "flange_dia_mm": 42.0 },
+      "GT2_80T": { "teeth": 80, "pitch_dia_mm": 50.93, "outside_dia_mm": 50.42, "flange_dia_mm": 55.0 }
+    }
+  },
+  "involute_and_herringbone_gears": {
+    "pressure_angle_deg": 20.0,
+    "helix_angle_herringbone_deg": 30.0,
+    "modules_supported": [0.5, 0.8, 1.0, 1.25, 1.5, 2.0],
+    "formulas": {
+      "pitch_diameter_mm": "module * teeth",
+      "addendum_mm": "1.0 * module",
+      "dedendum_mm": "1.25 * module",
+      "outside_diameter_mm": "module * (teeth + 2)",
+      "root_diameter_mm": "module * (teeth - 2.5)",
+      "center_distance_mm": "(module * (teeth_1 + teeth_2)) / 2"
+    }
+  },
+  "compliant_flexures_and_living_hinges": {
+    "living_hinge_pp_pe_tpu": {
+      "recommended_membrane_thickness_mm": 0.45,
+      "recommended_membrane_width_mm": 1.2,
+      "radius_fillet_mm": 1.5,
+      "print_orientation": "along_extrusions_horizontal"
+    },
+    "cross_axis_flexure_pivot": {
+      "leaf_blade_thickness_mm": 0.8,
+      "leaf_length_mm": 16.0,
+      "max_rotation_angle_deg": 18.0
+    }
+  }
+}

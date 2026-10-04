@@ -1,0 +1,52 @@
+{
+  "version": "1.0.0",
+  "description": "Verified CAD mechanical dimensions and standard taper angles for workshop dust collection and vacuum hoses",
+  "fittings": {
+    "VAC-SHOP-VAC-2_5": {
+      "name": "Shop-Vac / Rigid Standard 2.5 Inch",
+      "male_connection": {
+        "tip_outer_dia_mm": 57.15,
+        "base_outer_dia_mm": 58.74,
+        "taper_length_mm": 38.0,
+        "taper_angle_deg": 1.2
+      },
+      "female_connection": {
+        "mouth_inner_dia_mm": 59.2,
+        "throat_inner_dia_mm": 57.5,
+        "socket_depth_mm": 40.0
+      }
+    },
+    "VAC-FESTOOL-D27": {
+      "name": "Festool D27 Twist-Lock Antistatic Hose",
+      "connection_type": "bayonet_twist",
+      "nozzle_outer_dia_mm": 36.0,
+      "nozzle_inner_dia_mm": 27.0,
+      "locking_lug_height_mm": 2.5,
+      "locking_lug_width_mm": 4.0,
+      "engagement_length_mm": 22.0
+    },
+    "VAC-FESTOOL-D36": {
+      "name": "Festool D36 Dust Extraction",
+      "male_connection": {
+        "tip_outer_dia_mm": 44.5,
+        "base_outer_dia_mm": 45.8,
+        "taper_length_mm": 35.0
+      }
+    },
+    "VAC-DEWALT-AIRLOCK": {
+      "name": "DeWalt AirLock DWV9000 Quick Connector",
+      "connection_type": "locking_collar",
+      "sleeve_outer_dia_mm": 42.8,
+      "neck_recess_dia_mm": 38.2,
+      "locking_detent_pitch_mm": 12.0
+    },
+    "VAC-RIDGID-1_875": {
+      "name": "Ridgid 1-7/8 Inch Wet/Dry Vac Hose",
+      "male_connection": {
+        "tip_outer_dia_mm": 47.6,
+        "base_outer_dia_mm": 48.8,
+        "taper_length_mm": 32.0
+      }
+    }
+  }
+}

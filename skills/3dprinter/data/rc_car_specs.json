@@ -1,0 +1,55 @@
+{
+  "version": "1.0.0",
+  "description": "Standardized mechanical dimensions, gear pitches, wheel hexes, and hardware specs for 1/10, 1/8, and 1/16 scale RC vehicles",
+  "wheel_hex_hubs": {
+    "HEX_12MM_STANDARD": {
+      "nominal_hex_width_mm": 12.0,
+      "print_hex_width_mm": 12.15,
+      "axle_bore_dia_mm": 5.05,
+      "drive_pin_slot_width_mm": 2.2,
+      "drive_pin_slot_depth_mm": 2.5,
+      "typical_scales": ["1/10 Buggy", "1/10 Short Course", "1/10 Crawler", "1/10 Touring"]
+    },
+    "HEX_14MM": {
+      "nominal_hex_width_mm": 14.0,
+      "print_hex_width_mm": 14.2,
+      "axle_bore_dia_mm": 6.05,
+      "typical_scales": ["1/10 Monster Truck", "Arrma 3S / 4S"]
+    },
+    "HEX_17MM_STANDARD": {
+      "nominal_hex_width_mm": 17.0,
+      "print_hex_width_mm": 17.25,
+      "axle_bore_dia_mm": 8.05,
+      "pin_slot_width_mm": 3.2,
+      "typical_scales": ["1/8 Buggy", "1/8 Truggy", "1/8 Monster Truck", "Arrma 6S"]
+    }
+  },
+  "gear_pitches": {
+    "MOD_0_6": { "pitch_dia_formula": "teeth * 0.6", "module": 0.6, "typical_use": "Tamiya 1/10" },
+    "MOD_0_8_32DP": { "pitch_dia_formula": "teeth * 0.8", "module": 0.8, "typical_use": "Traxxas 1/10 2WD/4WD, Axial Crawlers" },
+    "MOD_1_0": { "pitch_dia_formula": "teeth * 1.0", "module": 1.0, "typical_use": "1/8 Brushless Bashers, Arrma 6S, E-Revo" },
+    "48_DP": { "pitch_dia_formula": "teeth * 25.4 / 48", "module": 0.529, "typical_use": "1/10 Carpet / Turf Racing Buggies" }
+  },
+  "hinge_pins_and_balls": {
+    "hinge_pin_3mm": { "pin_dia_mm": 3.0, "print_hole_dia_mm": 3.15 },
+    "hinge_pin_4mm": { "pin_dia_mm": 4.0, "print_hole_dia_mm": 4.18 },
+    "ball_stud_4_8mm": { "ball_dia_mm": 4.8, "cup_inner_dia_mm": 4.95, "shank_thread": "M3" },
+    "ball_stud_5_8mm": { "ball_dia_mm": 5.8, "cup_inner_dia_mm": 6.0, "shank_thread": "M3 or M4" }
+  },
+  "motors_540_550": {
+    "diameter_mm": 36.0,
+    "shaft_dia_mm": 3.175,
+    "shaft_dia_5mm_brushless": 5.0,
+    "mounting_face": {
+      "bolt_circle_dia_mm": 25.0,
+      "thread": "M3",
+      "pilot_boss_dia_mm": 13.0
+    }
+  },
+  "lipo_battery_standard_trays": {
+    "2S_STANDARD_HARDCASE": { "length_mm": 139.0, "width_mm": 47.0, "height_mm": 25.0 },
+    "3S_STANDARD_HARDCASE": { "length_mm": 139.0, "width_mm": 47.0, "height_mm": 35.0 },
+    "4S_BASHER_PACK": { "length_mm": 139.0, "width_mm": 47.0, "height_mm": 48.0 },
+    "SHORTY_2S": { "length_mm": 96.0, "width_mm": 47.0, "height_mm": 25.0 }
+  }
+}

@@ -1,0 +1,1826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parametric Maker Forge - Universal 3D Studio & CAD Inspector (∞ Meraki)</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background: #070c18; color: #f8fafc; display: flex; height: 100vh; overflow: hidden; }
+    #sidebar { width: 400px; background: #0f172a; border-right: 1px solid #1e293b; padding: 18px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
+    #viewport { flex: 1; position: relative; cursor: grab; }
+    #viewport:active { cursor: grabbing; }
+    .brand-header { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #1e293b; padding-bottom: 10px; }
+    h1 { font-size: 1.15rem; color: #38bdf8; display: flex; align-items: center; gap: 8px; font-weight: 700; }
+    .meraki-badge { font-size: 0.7rem; background: linear-gradient(135deg, #0284c7, #6366f1); color: white; padding: 3px 8px; border-radius: 12px; font-weight: 700; letter-spacing: 0.05em; display: flex; align-items: center; gap: 4px; box-shadow: 0 0 10px rgba(99,102,241,0.3); }
+    .card { background: #070c18; border: 1px solid #1e293b; border-radius: 8px; padding: 10px 12px; display: flex; flex-direction: column; gap: 6px; }
+    label { font-size: 0.72rem; text-transform: uppercase; color: #94a3b8; font-weight: 600; letter-spacing: 0.05em; }
+    select, input[type="text"] { background: #131c31; border: 1px solid #23314d; color: #f8fafc; border-radius: 6px; padding: 7px 10px; font-size: 0.85rem; width: 100%; outline: none; transition: border-color 0.15s; }
+    select:focus, input:focus { border-color: #38bdf8; }
+    .slider-group { display: flex; flex-direction: column; gap: 3px; }
+    .slider-header { display: flex; justify-content: space-between; font-size: 0.78rem; }
+    input[type="range"] { accent-color: #38bdf8; width: 100%; cursor: pointer; }
+    .btn { background: #0284c7; color: white; border: none; border-radius: 6px; padding: 9px; font-weight: 600; cursor: pointer; transition: background 0.15s; font-size: 0.82rem; display: flex; align-items: center; justify-content: center; gap: 6px; }
+    .btn:hover { background: #0369a1; }
+    .btn-secondary { background: #1e293b; color: #94a3b8; border: 1px solid #334155; }
+    .btn-secondary:hover { background: #334155; color: white; }
+    #toast { position: absolute; bottom: 20px; right: 20px; background: #10b981; color: white; padding: 10px 18px; border-radius: 6px; font-size: 0.85rem; font-weight: 600; display: none; box-shadow: 0 4px 12px rgba(0,0,0,0.5); z-index: 100; }
+    .hud-chip { position: absolute; top: 16px; right: 16px; background: rgba(15,23,42,0.85); backdrop-filter: blur(8px); border: 1px solid #334155; padding: 8px 14px; border-radius: 20px; font-size: 0.75rem; color: #94a3b8; display: flex; gap: 10px; align-items: center; z-index: 50; }
+    .hud-chip span { color: #38bdf8; font-weight: 600; }
+    .tier-toggle { display: flex; gap: 6px; }
+    .tier-btn { flex: 1; padding: 6px; font-size: 0.75rem; border-radius: 6px; border: 1px solid #23314d; background: #131c31; color: #94a3b8; cursor: pointer; text-align: center; }
+    .tier-btn.active { background: #0284c7; color: white; border-color: #38bdf8; font-weight: 600; }
+    .dim-pill { background: rgba(56,189,248,0.1); border: 1px solid rgba(56,189,248,0.3); border-radius: 4px; padding: 4px 8px; font-size: 0.75rem; color: #38bdf8; font-family: monospace; display: flex; justify-content: space-between; }
+    .dropzone { border: 2px dashed #23314d; border-radius: 6px; padding: 10px; text-align: center; font-size: 0.75rem; color: #64748b; cursor: pointer; transition: all 0.2s; }
+    .dropzone:hover, .dropzone.dragover { border-color: #38bdf8; color: #38bdf8; background: rgba(56,189,248,0.05); }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/STLLoader.js"></script>
+</head>
+<body>
+  <div id="sidebar">
+    <div class="brand-header">
+      <h1>🛠️ Maker Forge</h1>
+      <div class="meraki-badge">∞ MERAKI</div>
+    </div>
+
+    <!-- Tier Selector -->
+    <div class="card">
+      <label>1. Hardware Tier</label>
+      <div class="tier-toggle">
+        <div class="tier-btn active" id="tierKids">🧒 Kids & STEM ($25 Amazon)</div>
+        <div class="tier-btn" id="tierPro">⚡ Pro Robotics</div>
+      </div>
+    </div>
+
+    <!-- Authentic CAD Inspector -->
+    <div class="card" style="border-color: #0284c7;">
+      <label style="color: #38bdf8;">🔍 Authentic Manufacturer CAD Model</label>
+      <select id="cadModelSelector">
+        <option value="NONE">-- None (Procedural Only) --</option>
+      </select>
+      <div id="cadModelInfo" style="display: none; flex-direction: column; gap: 4px; margin-top: 4px;">
+        <div class="dim-pill">
+          <span>Dimensions (LxWxH):</span>
+          <span id="cadDims">-- x -- x -- mm</span>
+        </div>
+        <div style="font-size: 0.7rem; color: #94a3b8;" id="cadDesc">Official CAD model.</div>
+      </div>
+      <div class="dropzone" id="dropzone">
+        📁 Drag & Drop custom .STL here or click to load
+        <input type="file" id="fileInput" accept=".stl" style="display: none;">
+      </div>
+    </div>
+
+    <!-- Active Engineering Module -->
+    <div class="card">
+      <label>2. Active Engineering Module</label>
+      <select id="engineSelector">
+        <option value="ROBOTICS">🤖 Robotics & Embodied Kits</option>
+        <option value="ENCLOSURE">📦 Universal Enclosure (Snap/Heat-set)</option>
+        <option value="PHONE_CASE">📱 Smartphone Case (MagSafe / Lip)</option>
+        <option value="HOUSEHOLD_FIXES">🏠 Household Utility & Everyday Fixes</option>
+        <option value="PRINTER_MODS">🖨️ 3D Printer Upgrades & Mods</option>
+        <option value="GASKET_ORING">🦿 TPU Gasket / O-Ring</option>
+        <option value="VACUUM_HOSE">🌪️ Dust Collection / Vacuum Reducer</option>
+        <option value="BATTERY_DOCK">🔋 Tool Battery Dock (M18/DeWalt/Makita)</option>
+        <option value="GRIDFINITY">🧱 Gridfinity Storage Bin</option>
+        <option value="KNOB_DIAL">🎛️ Control Knob / Dial</option>
+        <option value="GEAR_PULLEY">⚙️ GT2 Timing Pulley / Gear</option>
+        <option value="JEWELRY_RING">💍 Jewelry / Signet Ring / Earring</option>
+      </select>
+    </div>
+
+    <!-- Hardware Model & Preset -->
+    <div class="card">
+      <label>3. Hardware Preset</label>
+      <select id="presetSelector"></select>
+    </div>
+
+    <!-- Part ID Traceability -->
+    <div class="card">
+      <label>4. Physical Part ID & Stamped Hallmark</label>
+      <input type="text" id="partIdInput" value="KIDS-ARM-LINK-SG90">
+    </div>
+
+    <!-- Parametric Sliders -->
+    <div class="card" id="slidersContainer">
+      <label>5. Parametric Geometry Controls</label>
+      <div class="slider-group">
+        <div class="slider-header"><span id="lblParam1">Dimension X (Length)</span><span id="valParam1">85mm</span></div>
+        <input type="range" id="param1" min="10" max="220" value="85">
+      </div>
+      <div class="slider-group">
+        <div class="slider-header"><span id="lblParam2">Dimension Y (Width)</span><span id="valParam2">20mm</span></div>
+        <input type="range" id="param2" min="10" max="180" value="20">
+      </div>
+      <div class="slider-group">
+        <div class="slider-header"><span id="lblParam3">Dimension Z (Height)</span><span id="valParam3">16mm</span></div>
+        <input type="range" id="param3" min="2" max="90" value="16">
+      </div>
+      <div class="slider-group" id="explodeGroup">
+        <div class="slider-header"><span>Exploded Assembly Offset</span><span id="valExplode">18mm</span></div>
+        <input type="range" id="sliderExplode" min="0" max="60" value="18">
+      </div>
+    </div>
+
+    <button class="btn" id="btnCopyOpenSCAD">📋 Copy Parametric OpenSCAD Code</button>
+  </div>
+
+  <div id="viewport">
+    <div class="hud-chip">
+      MODE: <span id="hudMode">ROBOTICS</span> | 
+      PART ID: <span id="hudPartId">KIDS-ARM-LINK-SG90</span> | 
+      HALLMARK: <span>∞ MERAKI</span>
+    </div>
+    <div id="toast">Copied OpenSCAD Code to Clipboard!</div>
+  </div>
+
+  <script>
+    // Master Embedded CAD Library Manifest
+    const CAD_MANIFEST = {
+  "library_name": "Parametric Maker Forge - Master Manufacturer CAD Library",
+  "version": "2.1.0",
+  "total_items": 82,
+  "items": [
+    {
+      "id": "1501_trinket_5v",
+      "name": "Adafruit Trinket 5V",
+      "manufacturer": "Adafruit Industries",
+      "category": "boards",
+      "description": "Miniature ATtiny85 microcontroller board with micro-USB programming.",
+      "stl_file": "cad_library/boards/1501 Trinket 5V.stl",
+      "step_file": "cad_library/boards/1501 Trinket 5V.step",
+      "dimensions_mm": {
+        "x": 15.3,
+        "y": 26.8,
+        "z": 4.0
+      },
+      "polygon_count": 856,
+      "size_bytes": 42884
+    },
+    {
+      "id": "1739_pizero_large",
+      "name": "Raspberry Pi Zero W / 2W",
+      "manufacturer": "Raspberry Pi Foundation",
+      "category": "boards",
+      "description": "Ultra-compact 65mm x 30mm SBC with mini-HDMI, dual micro-USB, and 40-pin GPIO.",
+      "stl_file": "cad_library/boards/1739 Pizero Large.stl",
+      "step_file": "cad_library/boards/1739 Pizero Large.step",
+      "dimensions_mm": {
+        "x": 29.3,
+        "y": 40.95,
+        "z": 6.0
+      },
+      "polygon_count": 2834,
+      "size_bytes": 141784
+    },
+    {
+      "id": "2488_adafruit_metro_328",
+      "name": "Adafruit Metro 328 (Arduino Uno R3)",
+      "manufacturer": "Adafruit / Arduino Compatible",
+      "category": "boards",
+      "description": "ATmega328P microcontroller board with standard Arduino Uno R3 footprint and header pinout.",
+      "stl_file": "cad_library/boards/2488 Adafruit Metro 328.stl",
+      "step_file": "cad_library/boards/2488 Adafruit Metro 328.step",
+      "dimensions_mm": {
+        "x": 71.08,
+        "y": 53.34,
+        "z": 12.14
+      },
+      "polygon_count": 1704,
+      "size_bytes": 85284
+    },
+    {
+      "id": "2821_adafruit_esp8266_feather",
+      "name": "2821 Adafruit ESP8266 Feather",
+      "manufacturer": "Manufacturer Model",
+      "category": "boards",
+      "description": "Official CAD geometry for 2821 Adafruit ESP8266 Feather.",
+      "stl_file": "cad_library/boards/2821 Adafruit ESP8266 Feather.stl",
+      "step_file": "cad_library/boards/2821 Adafruit ESP8266 Feather.step",
+      "dimensions_mm": {
+        "x": 51.25,
+        "y": 22.86,
+        "z": 6.37
+      },
+      "polygon_count": 33886,
+      "size_bytes": 1694384
+    },
+    {
+      "id": "3405_adafruit_huzzah32_esp32_feather",
+      "name": "3405 Adafruit HUZZAH32 ESP32 Feather",
+      "manufacturer": "Manufacturer Model",
+      "category": "boards",
+      "description": "Official CAD geometry for 3405 Adafruit HUZZAH32 ESP32 Feather.",
+      "stl_file": "cad_library/boards/3405 Adafruit HUZZAH32 ESP32 Feather.stl",
+      "step_file": "cad_library/boards/3405 Adafruit HUZZAH32 ESP32 Feather.step",
+      "dimensions_mm": {
+        "x": 51.35,
+        "y": 22.86,
+        "z": 6.37
+      },
+      "polygon_count": 60982,
+      "size_bytes": 3049184
+    },
+    {
+      "id": "3857_adafruit_feather_m4_express",
+      "name": "Adafruit Feather M4 Express",
+      "manufacturer": "Adafruit Industries",
+      "category": "boards",
+      "description": "ATSAMD51 Cortex M4 microcontroller running at 120MHz with hardware DSP and floating point.",
+      "stl_file": "cad_library/boards/3857 Adafruit Feather M4 Express.stl",
+      "step_file": "cad_library/boards/3857 Adafruit Feather M4 Express.step",
+      "dimensions_mm": {
+        "x": 50.85,
+        "y": 22.86,
+        "z": 6.37
+      },
+      "polygon_count": 34318,
+      "size_bytes": 1715984
+    },
+    {
+      "id": "5323_feather_esp32-s3",
+      "name": "Adafruit Feather ESP32-S3",
+      "manufacturer": "Espressif / Adafruit",
+      "category": "boards",
+      "description": "Dual-core 240MHz Xtensa LX7 MCU with 2.4GHz Wi-Fi, BLE 5.0, STEMMA QT, and native USB.",
+      "stl_file": "cad_library/boards/5323 Feather ESP32-S3.stl",
+      "step_file": "cad_library/boards/5323 Feather ESP32-S3.step",
+      "dimensions_mm": {
+        "x": 52.22,
+        "y": 22.86,
+        "z": 6.37
+      },
+      "polygon_count": 53200,
+      "size_bytes": 2660084
+    },
+    {
+      "id": "5325_qtpy_esp32s2",
+      "name": "Adafruit QT Py ESP32-S2",
+      "manufacturer": "Espressif / Adafruit",
+      "category": "boards",
+      "description": "Microscopic 21.8mm x 17.8mm development board with USB-C, STEMMA QT, and WiFi.",
+      "stl_file": "cad_library/boards/5325 QTPy ESP32S2.stl",
+      "step_file": "cad_library/boards/5325 QTPy ESP32S2.step",
+      "dimensions_mm": {
+        "x": 17.78,
+        "y": 21.66,
+        "z": 5.87
+      },
+      "polygon_count": 33314,
+      "size_bytes": 1665784
+    },
+    {
+      "id": "raspberry_pi_5",
+      "name": "Raspberry Pi 5 Model B",
+      "manufacturer": "Raspberry Pi Foundation",
+      "category": "boards",
+      "description": "Official Raspberry Pi 5 64-bit quad-core Arm Cortex-A76 SBC with PCIe 2.0, dual 4Kp60 micro-HDMI, dual USB 3.0, Gigabit Ethernet, and 40-pin GPIO.",
+      "stl_file": "cad_library/boards/raspberry_pi_5.stl",
+      "step_file": null,
+      "dimensions_mm": {
+        "x": 88.5,
+        "y": 57.63,
+        "z": 18.98
+      },
+      "polygon_count": 961278,
+      "size_bytes": 48063984
+    },
+    {
+      "id": "raspberry_pi_cm5",
+      "name": "raspberry_pi_cm5",
+      "manufacturer": "Manufacturer Model",
+      "category": "boards",
+      "description": "Official CAD geometry for raspberry_pi_cm5.",
+      "stl_file": "cad_library/boards/raspberry_pi_cm5.stl",
+      "step_file": "cad_library/boards/raspberry_pi_cm5.step",
+      "dimensions_mm": {
+        "x": 55.0,
+        "y": 40.0,
+        "z": 4.62
+      },
+      "polygon_count": 490984,
+      "size_bytes": 24549284
+    },
+    {
+      "id": "raspberry_pi_pico",
+      "name": "raspberry_pi_pico",
+      "manufacturer": "Manufacturer Model",
+      "category": "boards",
+      "description": "Official CAD geometry for raspberry_pi_pico.",
+      "stl_file": "cad_library/boards/raspberry_pi_pico.stl",
+      "step_file": "cad_library/boards/raspberry_pi_pico.step",
+      "dimensions_mm": {
+        "x": 21.0,
+        "y": 3.73,
+        "z": 52.3
+      },
+      "polygon_count": 20592,
+      "size_bytes": 1029684
+    },
+    {
+      "id": "raspberry_pi_pico_w",
+      "name": "raspberry_pi_pico_w",
+      "manufacturer": "Manufacturer Model",
+      "category": "boards",
+      "description": "Official CAD geometry for raspberry_pi_pico_w.",
+      "stl_file": "cad_library/boards/raspberry_pi_pico_w.stl",
+      "step_file": "cad_library/boards/raspberry_pi_pico_w.step",
+      "dimensions_mm": {
+        "x": 21.0,
+        "y": 52.35,
+        "z": 3.66
+      },
+      "polygon_count": 58530,
+      "size_bytes": 2926584
+    },
+    {
+      "id": "rpi-5b_no_graphics",
+      "name": "Raspberry Pi 5 (Official STEP)",
+      "manufacturer": "Raspberry Pi Foundation",
+      "category": "boards",
+      "description": "Full mechanical STEP geometry for Raspberry Pi 5.",
+      "stl_file": null,
+      "step_file": "cad_library/boards/rpi-5b_no_graphics.step",
+      "dimensions_mm": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "polygon_count": 0,
+      "size_bytes": 77627469
+    },
+    {
+      "id": "1085_ads1115_adc",
+      "name": "ADS1115 16-Bit 4-Channel ADC",
+      "manufacturer": "Texas Instruments / Adafruit",
+      "category": "sensors",
+      "description": "Ultra-precise 16-bit analog-to-digital converter with programmable gain amplifier.",
+      "stl_file": "cad_library/sensors/1085 ADS1115 ADC.stl",
+      "step_file": "cad_library/sensors/1085 ADS1115 ADC.step",
+      "dimensions_mm": {
+        "x": 25.4,
+        "y": 17.78,
+        "z": 4.53
+      },
+      "polygon_count": 9360,
+      "size_bytes": 468084
+    },
+    {
+      "id": "1374_at42qt1010_breakout",
+      "name": "AT42QT1010 Capacitive Touch Sensor",
+      "manufacturer": "Microchip / Adafruit",
+      "category": "sensors",
+      "description": "Single-channel capacitive touch controller board for touch pads and interactive interfaces.",
+      "stl_file": "cad_library/sensors/1374 AT42QT1010 Breakout.stl",
+      "step_file": "cad_library/sensors/1374 AT42QT1010 Breakout.step",
+      "dimensions_mm": {
+        "x": 20.32,
+        "y": 27.94,
+        "z": 3.44
+      },
+      "polygon_count": 4306,
+      "size_bytes": 215384
+    },
+    {
+      "id": "2472_bno055_breakout",
+      "name": "BNO055 9-DOF Absolute Orientation IMU",
+      "manufacturer": "Bosch Sensortec / Adafruit",
+      "category": "sensors",
+      "description": "Smart sensor with internal Cortex-M0 MCU outputting quaternions and Euler angles.",
+      "stl_file": "cad_library/sensors/2472 BNO055 Breakout.stl",
+      "step_file": "cad_library/sensors/2472 BNO055 Breakout.step",
+      "dimensions_mm": {
+        "x": 26.67,
+        "y": 20.32,
+        "z": 4.23
+      },
+      "polygon_count": 17488,
+      "size_bytes": 874484
+    },
+    {
+      "id": "2652_bmp280_stemma_qt",
+      "name": "BMP280 Barometric Pressure Sensor",
+      "manufacturer": "Bosch Sensortec / Adafruit",
+      "category": "sensors",
+      "description": "Altimeter and barometric pressure sensor with plug-and-play STEMMA QT connectors.",
+      "stl_file": "cad_library/sensors/2652 BMP280 STEMMA QT.stl",
+      "step_file": "cad_library/sensors/2652 BMP280 STEMMA QT.step",
+      "dimensions_mm": {
+        "x": 25.4,
+        "y": 17.78,
+        "z": 4.53
+      },
+      "polygon_count": 9388,
+      "size_bytes": 469484
+    },
+    {
+      "id": "3595_apds9960_sensor",
+      "name": "3595 APDS9960 Sensor",
+      "manufacturer": "Manufacturer Model",
+      "category": "sensors",
+      "description": "Official CAD geometry for 3595 APDS9960 Sensor.",
+      "stl_file": "cad_library/sensors/3595 APDS9960 Sensor.stl",
+      "step_file": "cad_library/sensors/3595 APDS9960 Sensor.step",
+      "dimensions_mm": {
+        "x": 25.4,
+        "y": 17.78,
+        "z": 4.53
+      },
+      "polygon_count": 8392,
+      "size_bytes": 419684
+    },
+    {
+      "id": "3967_vl5sl1x_tof_sensor",
+      "name": "VL53L1X Time-of-Flight LiDAR Sensor (4m)",
+      "manufacturer": "STMicroelectronics / Adafruit",
+      "category": "sensors",
+      "description": "940nm invisible Class 1 laser ranging sensor accurate from 4cm up to 4 meters.",
+      "stl_file": "cad_library/sensors/3967 VL5SL1X TOF Sensor.stl",
+      "step_file": "cad_library/sensors/3967 VL5SL1X TOF Sensor.step",
+      "dimensions_mm": {
+        "x": 25.4,
+        "y": 17.78,
+        "z": 4.53
+      },
+      "polygon_count": 9394,
+      "size_bytes": 469784
+    },
+    {
+      "id": "4026_stemma_soil_sensor",
+      "name": "4026 STEMMA Soil Sensor",
+      "manufacturer": "Manufacturer Model",
+      "category": "sensors",
+      "description": "Official CAD geometry for 4026 STEMMA Soil Sensor.",
+      "stl_file": "cad_library/sensors/4026 STEMMA Soil Sensor.stl",
+      "step_file": "cad_library/sensors/4026 STEMMA Soil Sensor.step",
+      "dimensions_mm": {
+        "x": 76.2,
+        "y": 13.97,
+        "z": 6.37
+      },
+      "polygon_count": 8352,
+      "size_bytes": 417684
+    },
+    {
+      "id": "4566-aht20-sensor",
+      "name": "4566-AHT20-Sensor",
+      "manufacturer": "Manufacturer Model",
+      "category": "sensors",
+      "description": "Official CAD geometry for 4566-AHT20-Sensor.",
+      "stl_file": "cad_library/sensors/4566-AHT20-Sensor.stl",
+      "step_file": "cad_library/sensors/4566-AHT20-Sensor.step",
+      "dimensions_mm": {
+        "x": 25.4,
+        "y": 17.78,
+        "z": 4.53
+      },
+      "polygon_count": 5592,
+      "size_bytes": 279684
+    },
+    {
+      "id": "adafruit_bme280",
+      "name": "BME280 Environmental Sensor",
+      "manufacturer": "Bosch Sensortec / Adafruit",
+      "category": "sensors",
+      "description": "Precision barometric pressure, temperature, and relative humidity sensor with I2C/SPI.",
+      "stl_file": "cad_library/sensors/Adafruit BME280.stl",
+      "step_file": "cad_library/sensors/Adafruit BME280.step",
+      "dimensions_mm": {
+        "x": 17.78,
+        "y": 19.05,
+        "z": 2.97
+      },
+      "polygon_count": 8652,
+      "size_bytes": 432684
+    },
+    {
+      "id": "1143_micro_servo_high_torque_metal_gear",
+      "name": "SG90 / MG90S Metal Gear Micro Servo",
+      "manufacturer": "TowerPro / Adafruit",
+      "category": "actuators",
+      "description": "Standard 9g micro servo with metal gears, 1.8kg-cm stall torque, 180\u00b0 rotation, and mounting ears.",
+      "stl_file": "cad_library/actuators/1143 Micro Servo High Torque Metal Gear.stl",
+      "step_file": "cad_library/actuators/1143 Micro Servo High Torque Metal Gear.step",
+      "dimensions_mm": {
+        "x": 12.0,
+        "y": 31.3,
+        "z": 30.68
+      },
+      "polygon_count": 2270,
+      "size_bytes": 113584
+    },
+    {
+      "id": "1143_servo_cq",
+      "name": "1143_servo_cq",
+      "manufacturer": "Manufacturer Model",
+      "category": "actuators",
+      "description": "Official CAD geometry for 1143_servo_cq.",
+      "stl_file": "cad_library/actuators/1143_servo_cq.stl",
+      "step_file": null,
+      "dimensions_mm": {
+        "x": 12.0,
+        "y": 31.3,
+        "z": 30.68
+      },
+      "polygon_count": 2720,
+      "size_bytes": 136084
+    },
+    {
+      "id": "1253_aluminum_timing_pulley",
+      "name": "GT2 Aluminum Timing Pulley (16T)",
+      "manufacturer": "Adafruit Industries",
+      "category": "actuators",
+      "description": "Precision 2mm pitch GT2 timing pulley with setscrews for 5mm motor shafts.",
+      "stl_file": "cad_library/actuators/1253 Aluminum Timing Pulley.stl",
+      "step_file": "cad_library/actuators/1253 Aluminum Timing Pulley.step",
+      "dimensions_mm": {
+        "x": 25.5,
+        "y": 17.0,
+        "z": 25.43
+      },
+      "polygon_count": 8040,
+      "size_bytes": 402084
+    },
+    {
+      "id": "1438_adafruit_motorshield",
+      "name": "Adafruit Motor Shield v2 for Arduino",
+      "manufacturer": "Adafruit Industries",
+      "category": "actuators",
+      "description": "TB6612 dual H-bridge motor shield capable of driving 4 DC motors or 2 stepper motors.",
+      "stl_file": "cad_library/actuators/1438 Adafruit MotorShield.stl",
+      "step_file": "cad_library/actuators/1438 Adafruit MotorShield.step",
+      "dimensions_mm": {
+        "x": 68.58,
+        "y": 53.34,
+        "z": 13.14
+      },
+      "polygon_count": 824,
+      "size_bytes": 41284
+    },
+    {
+      "id": "2201_submicro_servo_sg51r",
+      "name": "2201 Submicro Servo SG51R",
+      "manufacturer": "Manufacturer Model",
+      "category": "actuators",
+      "description": "Official CAD geometry for 2201 Submicro Servo SG51R.",
+      "stl_file": "cad_library/actuators/2201 Submicro Servo SG51R.stl",
+      "step_file": "cad_library/actuators/2201 Submicro Servo SG51R.step",
+      "dimensions_mm": {
+        "x": 30.1,
+        "y": 11.8,
+        "z": 24.9
+      },
+      "polygon_count": 2300,
+      "size_bytes": 115084
+    },
+    {
+      "id": "2941_micro_dc_motor",
+      "name": "2941 Micro DC Motor",
+      "manufacturer": "Manufacturer Model",
+      "category": "actuators",
+      "description": "Official CAD geometry for 2941 Micro DC Motor.",
+      "stl_file": "cad_library/actuators/2941 Micro DC Motor.stl",
+      "step_file": "cad_library/actuators/2941 Micro DC Motor.step",
+      "dimensions_mm": {
+        "x": 11.8,
+        "y": 35.9,
+        "z": 30.3
+      },
+      "polygon_count": 1726,
+      "size_bytes": 86384
+    },
+    {
+      "id": "nema17_stepper",
+      "name": "NEMA 17 Bipolar Stepper Motor",
+      "manufacturer": "Standard / StepperOnline",
+      "category": "actuators",
+      "description": "Standard 42.3mm square hybrid stepper motor with 5mm D-shaft, 1.8\u00b0 step angle, and 31mm bolt pattern.",
+      "stl_file": "cad_library/actuators/nema17_stepper.stl",
+      "step_file": "cad_library/actuators/nema17_stepper.step",
+      "dimensions_mm": {
+        "x": 42.3,
+        "y": 42.3,
+        "z": 58.0
+      },
+      "polygon_count": 3572,
+      "size_bytes": 178684
+    },
+    {
+      "id": "yellow_tt_gearmotor",
+      "name": "Yellow TT DC Hobby Gearmotor",
+      "manufacturer": "Standard Robotics / STEM",
+      "category": "actuators",
+      "description": "Dual-axis 1:48 gear ratio DC motor widely used in STEM educational robotics rovers.",
+      "stl_file": "cad_library/actuators/yellow_tt_gearmotor.stl",
+      "step_file": "cad_library/actuators/yellow_tt_gearmotor.step",
+      "dimensions_mm": {
+        "x": 22.4,
+        "y": 69.75,
+        "z": 29.4
+      },
+      "polygon_count": 2004,
+      "size_bytes": 100284
+    },
+    {
+      "id": "1317_150mah_lipo_battery",
+      "name": "150mAh 3.7V Ultra-Compact LiPo Cell",
+      "manufacturer": "Adafruit Industries",
+      "category": "batteries",
+      "description": "Ultra-slim single-cell lithium polymer battery with 2-pin JST-PH connector.",
+      "stl_file": "cad_library/batteries/1317 150mAh Lipo Battery.stl",
+      "step_file": "cad_library/batteries/1317 150mAh Lipo Battery.step",
+      "dimensions_mm": {
+        "x": 26.02,
+        "y": 19.75,
+        "z": 3.8
+      },
+      "polygon_count": 188,
+      "size_bytes": 9484
+    },
+    {
+      "id": "1321_battery_9v",
+      "name": "Standard 9V PP3 Alkaline / Li-Ion Battery",
+      "manufacturer": "Standard / ANSI 1604A",
+      "category": "batteries",
+      "description": "Rectangular 9-volt battery with snap connectors.",
+      "stl_file": "cad_library/batteries/1321 Battery 9V.stl",
+      "step_file": "cad_library/batteries/1321 Battery 9V.step",
+      "dimensions_mm": {
+        "x": 26.0,
+        "y": 48.3,
+        "z": 17.0
+      },
+      "polygon_count": 11333,
+      "size_bytes": 566734
+    },
+    {
+      "id": "1578_500mah_battery",
+      "name": "500mAh 3.7V LiPo Flat Pouch Battery",
+      "manufacturer": "Adafruit Industries",
+      "category": "batteries",
+      "description": "Medium single-cell lithium polymer battery with integrated protection circuit.",
+      "stl_file": "cad_library/batteries/1578 500mAh battery.stl",
+      "step_file": "cad_library/batteries/1578 500mAh battery.step",
+      "dimensions_mm": {
+        "x": 36.0,
+        "y": 29.0,
+        "z": 4.75
+      },
+      "polygon_count": 188,
+      "size_bytes": 9484
+    },
+    {
+      "id": "1781_2200mah_battery",
+      "name": "2200mAh 3.7V Cylindrical LiPo Pack",
+      "manufacturer": "Adafruit Industries",
+      "category": "batteries",
+      "description": "High capacity 18650-based cylindrical battery pack with JST connector.",
+      "stl_file": "cad_library/batteries/1781 2200mAh Battery.stl",
+      "step_file": "cad_library/batteries/1781 2200mAh Battery.step",
+      "dimensions_mm": {
+        "x": 18.0,
+        "y": 17.95,
+        "z": 69.0
+      },
+      "polygon_count": 2348,
+      "size_bytes": 117484
+    },
+    {
+      "id": "1871_cr2032_breakout_switch",
+      "name": "CR2032 Coin Cell Battery Holder with Switch",
+      "manufacturer": "Adafruit Industries",
+      "category": "batteries",
+      "description": "20mm coin cell socket with integrated slide switch and breadboard pins.",
+      "stl_file": "cad_library/batteries/1871 CR2032 Breakout Switch.stl",
+      "step_file": "cad_library/batteries/1871 CR2032 Breakout Switch.step",
+      "dimensions_mm": {
+        "x": 27.94,
+        "y": 29.23,
+        "z": 5.89
+      },
+      "polygon_count": 3860,
+      "size_bytes": 193084
+    },
+    {
+      "id": "1904_microusb_lipo_charger",
+      "name": "MicroUSB LiPo Charger Breakout (500mA)",
+      "manufacturer": "Adafruit Industries",
+      "category": "batteries",
+      "description": "Constant-current/constant-voltage charger based on the MCP73831 chip.",
+      "stl_file": "cad_library/batteries/1904 MicroUSB Lipo Charger.stl",
+      "step_file": "cad_library/batteries/1904 MicroUSB Lipo Charger.step",
+      "dimensions_mm": {
+        "x": 20.98,
+        "y": 19.05,
+        "z": 6.37
+      },
+      "polygon_count": 9066,
+      "size_bytes": 453384
+    },
+    {
+      "id": "2000mah_battery",
+      "name": "2000mAh 3.7V LiPo Flat Pack",
+      "manufacturer": "Adafruit Industries",
+      "category": "batteries",
+      "description": "Heavy-duty lithium polymer pouch cell with PCM protection.",
+      "stl_file": "cad_library/batteries/2000mAh Battery.stl",
+      "step_file": "cad_library/batteries/2000mAh Battery.step",
+      "dimensions_mm": {
+        "x": 37.0,
+        "y": 60.0,
+        "z": 7.5
+      },
+      "polygon_count": 188,
+      "size_bytes": 9484
+    },
+    {
+      "id": "1426_8x_neopixel_stick",
+      "name": "8-LED NeoPixel Rigid Stick (WS2812B)",
+      "manufacturer": "Worldsemi / Adafruit",
+      "category": "displays",
+      "description": "Linear array of 8 ultra-bright addressable RGB LEDs.",
+      "stl_file": "cad_library/displays/1426 8x NeoPixel Stick.stl",
+      "step_file": "cad_library/displays/1426 8x NeoPixel Stick.step",
+      "dimensions_mm": {
+        "x": 50.8,
+        "y": 10.16,
+        "z": 2.6
+      },
+      "polygon_count": 1956,
+      "size_bytes": 97884
+    },
+    {
+      "id": "1463_16x_neopixel_ring",
+      "name": "16-LED NeoPixel Ring (WS2812B RGB)",
+      "manufacturer": "Worldsemi / Adafruit",
+      "category": "displays",
+      "description": "Circular ring array of 16 individually addressable 5050 RGB LEDs.",
+      "stl_file": "cad_library/displays/1463 16x NeoPixel Ring.stl",
+      "step_file": "cad_library/displays/1463 16x NeoPixel Ring.step",
+      "dimensions_mm": {
+        "x": 44.45,
+        "y": 44.33,
+        "z": 3.3
+      },
+      "polygon_count": 528,
+      "size_bytes": 26484
+    },
+    {
+      "id": "1487_neomatrix_8x8",
+      "name": "8x8 NeoMatrix Grid (64 RGB LEDs)",
+      "manufacturer": "Worldsemi / Adafruit",
+      "category": "displays",
+      "description": "Square 71mm x 71mm grid of 64 addressable RGB LEDs.",
+      "stl_file": "cad_library/displays/1487 NeoMatrix 8x8.stl",
+      "step_file": "cad_library/displays/1487 NeoMatrix 8x8.step",
+      "dimensions_mm": {
+        "x": 71.12,
+        "y": 71.12,
+        "z": 2.97
+      },
+      "polygon_count": 34224,
+      "size_bytes": 1711284
+    },
+    {
+      "id": "1586_24x_neoring",
+      "name": "24-LED NeoPixel Ring (WS2812B RGB)",
+      "manufacturer": "Worldsemi / Adafruit",
+      "category": "displays",
+      "description": "Larger 66mm OD circular array of 24 individually addressable RGB LEDs.",
+      "stl_file": "cad_library/displays/1586 24x NeoRing.stl",
+      "step_file": "cad_library/displays/1586 24x NeoRing.step",
+      "dimensions_mm": {
+        "x": 66.0,
+        "y": 65.82,
+        "z": 2.8
+      },
+      "polygon_count": 720,
+      "size_bytes": 36084
+    },
+    {
+      "id": "2088_1.44in_tft_display-revc",
+      "name": "1.44 inch Color TFT LCD Display (128x128)",
+      "manufacturer": "Adafruit Industries",
+      "category": "displays",
+      "description": "Full 16-bit color SPI screen with microSD card slot.",
+      "stl_file": "cad_library/displays/2088 1.44in TFT Display-revC.stl",
+      "step_file": "cad_library/displays/2088 1.44in TFT Display-revC.step",
+      "dimensions_mm": {
+        "x": 44.45,
+        "y": 43.17,
+        "z": 6.25
+      },
+      "polygon_count": 15704,
+      "size_bytes": 785284
+    },
+    {
+      "id": "2315_pitft_2.2",
+      "name": "2315 PiTFT 2.2",
+      "manufacturer": "Manufacturer Model",
+      "category": "displays",
+      "description": "Official CAD geometry for 2315 PiTFT 2.2.",
+      "stl_file": "cad_library/displays/2315 PiTFT 2.2.stl",
+      "step_file": "cad_library/displays/2315 PiTFT 2.2.step",
+      "dimensions_mm": {
+        "x": 65.02,
+        "y": 57.0,
+        "z": 10.4
+      },
+      "polygon_count": 3896,
+      "size_bytes": 194884
+    },
+    {
+      "id": "2719_oled_2.4in",
+      "name": "2.4 inch Monochrome Graphic OLED (128x64)",
+      "manufacturer": "Adafruit Industries",
+      "category": "displays",
+      "description": "High visibility large OLED display module.",
+      "stl_file": "cad_library/displays/2719 OLED 2.4in.stl",
+      "step_file": "cad_library/displays/2719 OLED 2.4in.step",
+      "dimensions_mm": {
+        "x": 70.0,
+        "y": 49.6,
+        "z": 3.5
+      },
+      "polygon_count": 552,
+      "size_bytes": 27684
+    },
+    {
+      "id": "938_mono_128x64_oled_stemma",
+      "name": "0.96 inch Monochrome 128x64 OLED (I2C/SPI)",
+      "manufacturer": "Adafruit Industries",
+      "category": "displays",
+      "description": "Crisp high-contrast graphical display with SSD1306 controller and STEMMA QT.",
+      "stl_file": "cad_library/displays/938 Mono 128x64 OLED Stemma.stl",
+      "step_file": "cad_library/displays/938 Mono 128x64 OLED Stemma.step",
+      "dimensions_mm": {
+        "x": 35.56,
+        "y": 33.02,
+        "z": 6.53
+      },
+      "polygon_count": 12130,
+      "size_bytes": 606584
+    },
+    {
+      "id": "adafruit_neopixel_ring_16_b",
+      "name": "16-LED NeoPixel Ring Rev B",
+      "manufacturer": "Worldsemi / Adafruit",
+      "category": "displays",
+      "description": "Single-wire daisy-chainable 16-LED ring array.",
+      "stl_file": "cad_library/displays/Adafruit NeoPixel Ring 16 B.stl",
+      "step_file": null,
+      "dimensions_mm": {
+        "x": 44.44,
+        "y": 44.45,
+        "z": 2.97
+      },
+      "polygon_count": 11440,
+      "size_bytes": 572084
+    },
+    {
+      "id": "1119-12mm-tactileswitch",
+      "name": "12mm Square Momentary Tactile Switch",
+      "manufacturer": "Omron / Adafruit",
+      "category": "hardware",
+      "description": "Heavy-duty 12mm x 12mm tactile pushbutton with snap action.",
+      "stl_file": "cad_library/hardware/1119-12mm-TactileSwitch.stl",
+      "step_file": "cad_library/hardware/1119-12mm-TactileSwitch.step",
+      "dimensions_mm": {
+        "x": 12.91,
+        "y": 8.96,
+        "z": 12.0
+      },
+      "polygon_count": 5256,
+      "size_bytes": 262884
+    },
+    {
+      "id": "1185_massive_arcade_button_100mm",
+      "name": "100mm Massive Dome Arcade Pushbutton",
+      "manufacturer": "Adafruit Industries",
+      "category": "hardware",
+      "description": "Jumbo 100mm diameter illuminated arcade dome button with microswitch.",
+      "stl_file": "cad_library/hardware/1185 Massive Arcade Button 100mm.stl",
+      "step_file": "cad_library/hardware/1185 Massive Arcade Button 100mm.step",
+      "dimensions_mm": {
+        "x": 98.5,
+        "y": 98.22,
+        "z": 68.5
+      },
+      "polygon_count": 49920,
+      "size_bytes": 2496084
+    },
+    {
+      "id": "1221_adafruit_2020_extrusion",
+      "name": "2020 Aluminum Extrusion Profile (T-Slot)",
+      "manufacturer": "Adafruit Industries",
+      "category": "hardware",
+      "description": "Standard 20mm x 20mm modular aluminum framing extrusion.",
+      "stl_file": "cad_library/hardware/1221 Adafruit 2020 Extrusion.stl",
+      "step_file": "cad_library/hardware/1221 Adafruit 2020 Extrusion.step",
+      "dimensions_mm": {
+        "x": 100.0,
+        "y": 20.0,
+        "z": 20.0
+      },
+      "polygon_count": 2280,
+      "size_bytes": 114084
+    },
+    {
+      "id": "1400_push_button_power_switch",
+      "name": "16mm Illuminated Panel-Mount Pushbutton",
+      "manufacturer": "Adafruit Industries",
+      "category": "hardware",
+      "description": "Rugged waterproof metal pushbutton with LED halo ring.",
+      "stl_file": "cad_library/hardware/1400 Push Button Power Switch.stl",
+      "step_file": "cad_library/hardware/1400 Push Button Power Switch.step",
+      "dimensions_mm": {
+        "x": 20.32,
+        "y": 17.78,
+        "z": 8.96
+      },
+      "polygon_count": 49592,
+      "size_bytes": 2479684
+    },
+    {
+      "id": "1833_micro_usb_breakout",
+      "name": "MicroUSB Type-B Breakout Jack",
+      "manufacturer": "Adafruit Industries",
+      "category": "hardware",
+      "description": "Panel/chassis power and data breakout for microUSB.",
+      "stl_file": "cad_library/hardware/1833 micro USB Breakout.stl",
+      "step_file": "cad_library/hardware/1833 micro USB Breakout.step",
+      "dimensions_mm": {
+        "x": 20.32,
+        "y": 10.16,
+        "z": 3.8
+      },
+      "polygon_count": 1748,
+      "size_bytes": 87484
+    },
+    {
+      "id": "bearing_608_2rs",
+      "name": "608-2RS Deep Groove Ball Bearing (8x22x7mm)",
+      "manufacturer": "Standard ISO / Skate Standard",
+      "category": "hardware",
+      "description": "Universal 8mm bore, 22mm outer diameter, 7mm width ball bearing with rubber seals.",
+      "stl_file": "cad_library/hardware/bearing_608_2rs.stl",
+      "step_file": "cad_library/hardware/bearing_608_2rs.step",
+      "dimensions_mm": {
+        "x": 22.0,
+        "y": 21.99,
+        "z": 7.0
+      },
+      "polygon_count": 3024,
+      "size_bytes": 151284
+    },
+    {
+      "id": "ruthex_m3_insert",
+      "name": "Ruthex M3 Brass Threaded Heat-Set Insert",
+      "manufacturer": "Ruthex / CNC Kitchen Standard",
+      "category": "hardware",
+      "description": "Tapered knurled brass insert (4.6mm OD x 5.7mm length) for M3 screws in 3D prints.",
+      "stl_file": "cad_library/hardware/ruthex_m3_insert.stl",
+      "step_file": "cad_library/hardware/ruthex_m3_insert.step",
+      "dimensions_mm": {
+        "x": 4.6,
+        "y": 4.6,
+        "z": 5.7
+      },
+      "polygon_count": 3024,
+      "size_bytes": 151284
+    },
+    {
+      "id": "openarm_bearing_retainer",
+      "name": "openarm_bearing_retainer",
+      "manufacturer": "Manufacturer Model",
+      "category": "robotics",
+      "description": "Official CAD geometry for openarm_bearing_retainer.",
+      "stl_file": "cad_library/robotics/openarm_bearing_retainer.stl",
+      "step_file": null,
+      "dimensions_mm": {
+        "x": 9.93,
+        "y": 18.0,
+        "z": 10.0
+      },
+      "polygon_count": 228,
+      "size_bytes": 59298
+    },
+    {
+      "id": "openarm_bearing_spacer",
+      "name": "openarm_bearing_spacer",
+      "manufacturer": "Manufacturer Model",
+      "category": "robotics",
+      "description": "Official CAD geometry for openarm_bearing_spacer.",
+      "stl_file": "cad_library/robotics/openarm_bearing_spacer.stl",
+      "step_file": null,
+      "dimensions_mm": {
+        "x": 9.93,
+        "y": 18.0,
+        "z": 10.0
+      },
+      "polygon_count": 228,
+      "size_bytes": 59298
+    },
+    {
+      "id": "openarm_bicep_link",
+      "name": "OpenArm 7-DOF Upper Arm / Bicep Link",
+      "manufacturer": "Enactic / OpenArm",
+      "category": "robotics",
+      "description": "High-rigidity lightweight hollow carbon-reinforced bicep spar.",
+      "stl_file": "cad_library/robotics/openarm_bicep_link.stl",
+      "step_file": null,
+      "dimensions_mm": {
+        "x": 60.0,
+        "y": 213.04,
+        "z": 123.0
+      },
+      "polygon_count": 2274,
+      "size_bytes": 591258
+    },
+    {
+      "id": "openarm_camera_mount",
+      "name": "openarm_camera_mount",
+      "manufacturer": "Manufacturer Model",
+      "category": "robotics",
+      "description": "Official CAD geometry for openarm_camera_mount.",
+      "stl_file": "cad_library/robotics/openarm_camera_mount.stl",
+      "step_file": null,
+      "dimensions_mm": {
+        "x": 56.81,
+        "y": 46.0,
+        "z": 57.0
+      },
+      "polygon_count": 2524,
+      "size_bytes": 656258
+    },
+    {
+      "id": "openarm_claw_base",
+      "name": "OpenArm Motor 8 Lead-Screw Gripper Base",
+      "manufacturer": "Enactic / OpenArm",
+      "category": "robotics",
+      "description": "Linear lead screw actuator casing for anti-backlash robotic finger drive.",
+      "stl_file": "cad_library/robotics/openarm_claw_base.stl",
+      "step_file": null,
+      "dimensions_mm": {
+        "x": 19.25,
+        "y": 57.0,
+        "z": 56.83
+      },
+      "polygon_count": 2516,
+      "size_bytes": 654178
+    },
+    {
+      "id": "openarm_claw_finger",
+      "name": "OpenArm Lead-Screw Dual Gripper Finger",
+      "manufacturer": "Enactic / OpenArm",
+      "category": "robotics",
+      "description": "High-friction polyurethane/silicone pad gripper jaw finger.",
+      "stl_file": "cad_library/robotics/openarm_claw_finger.stl",
+      "step_file": null,
+      "dimensions_mm": {
+        "x": 6.3,
+        "y": 42.5,
+        "z": 42.34
+      },
+      "polygon_count": 2542,
+      "size_bytes": 660938
+    },
+    {
+      "id": "openarm_elbow_spacer",
+      "name": "openarm_elbow_spacer",
+      "manufacturer": "Manufacturer Model",
+      "category": "robotics",
+      "description": "Official CAD geometry for openarm_elbow_spacer.",
+      "stl_file": "cad_library/robotics/openarm_elbow_spacer.stl",
+      "step_file": null,
+      "dimensions_mm": {
+        "x": 11.5,
+        "y": 17.0,
+        "z": 6.8
+      },
+      "polygon_count": 160,
+      "size_bytes": 41618
+    },
+    {
+      "id": "openarm_forearm_link",
+      "name": "OpenArm 7-DOF Forearm Shell Link",
+      "manufacturer": "Enactic / OpenArm",
+      "category": "robotics",
+      "description": "Symmetrical forearm housing for elbow flexion and forearm rotation.",
+      "stl_file": "cad_library/robotics/openarm_forearm_link.stl",
+      "step_file": null,
+      "dimensions_mm": {
+        "x": 190.0,
+        "y": 8.0,
+        "z": 250.0
+      },
+      "polygon_count": 5308,
+      "size_bytes": 1380098
+    },
+    {
+      "id": "openarm_gripper_pad",
+      "name": "openarm_gripper_pad",
+      "manufacturer": "Manufacturer Model",
+      "category": "robotics",
+      "description": "Official CAD geometry for openarm_gripper_pad.",
+      "stl_file": "cad_library/robotics/openarm_gripper_pad.stl",
+      "step_file": null,
+      "dimensions_mm": {
+        "x": 65.0,
+        "y": 133.24,
+        "z": 32.0
+      },
+      "polygon_count": 6425,
+      "size_bytes": 1670518
+    },
+    {
+      "id": "openarm_motor_bell_clamp",
+      "name": "openarm_motor_bell_clamp",
+      "manufacturer": "Manufacturer Model",
+      "category": "robotics",
+      "description": "Official CAD geometry for openarm_motor_bell_clamp.",
+      "stl_file": "cad_library/robotics/openarm_motor_bell_clamp.stl",
+      "step_file": null,
+      "dimensions_mm": {
+        "x": 6.8,
+        "y": 17.0,
+        "z": 11.5
+      },
+      "polygon_count": 136,
+      "size_bytes": 35378
+    },
+    {
+      "id": "openarm_shoulder_pitch",
+      "name": "OpenArm 7-DOF Base / Shoulder Pitch Joint",
+      "manufacturer": "Enactic / OpenArm",
+      "category": "robotics",
+      "description": "Heavy-duty structural joint housing Motor 1 DaMiao MIT CAN actuator.",
+      "stl_file": "cad_library/robotics/openarm_shoulder_pitch.stl",
+      "step_file": null,
+      "dimensions_mm": {
+        "x": 55.0,
+        "y": 55.0,
+        "z": 50.0
+      },
+      "polygon_count": 904,
+      "size_bytes": 235058
+    },
+    {
+      "id": "openarm_shoulder_yaw",
+      "name": "OpenArm 7-DOF Shoulder Yaw Joint",
+      "manufacturer": "Enactic / OpenArm",
+      "category": "robotics",
+      "description": "Dual-bearing arm link for 360\u00b0 shoulder yaw rotation.",
+      "stl_file": "cad_library/robotics/openarm_shoulder_yaw.stl",
+      "step_file": null,
+      "dimensions_mm": {
+        "x": 55.0,
+        "y": 55.0,
+        "z": 50.0
+      },
+      "polygon_count": 904,
+      "size_bytes": 235058
+    },
+    {
+      "id": "openarm_wrist_bracket",
+      "name": "openarm_wrist_bracket",
+      "manufacturer": "Manufacturer Model",
+      "category": "robotics",
+      "description": "Official CAD geometry for openarm_wrist_bracket.",
+      "stl_file": "cad_library/robotics/openarm_wrist_bracket.stl",
+      "step_file": null,
+      "dimensions_mm": {
+        "x": 51.1,
+        "y": 124.98,
+        "z": 57.0
+      },
+      "polygon_count": 1288,
+      "size_bytes": 334898
+    },
+    {
+      "id": "openarm_wrist_pitch",
+      "name": "OpenArm 7-DOF SteadyWin Wrist Pitch Bracket",
+      "manufacturer": "Enactic / OpenArm",
+      "category": "robotics",
+      "description": "Direct-drive bracket for Motor 6 SteadyWin TT4510-10 pitch actuator.",
+      "stl_file": "cad_library/robotics/openarm_wrist_pitch.stl",
+      "step_file": null,
+      "dimensions_mm": {
+        "x": 53.25,
+        "y": 56.83,
+        "z": 57.0
+      },
+      "polygon_count": 2300,
+      "size_bytes": 598018
+    },
+    {
+      "id": "openarm_wrist_roll",
+      "name": "OpenArm 7-DOF Wrist Roll & Gripper Mount",
+      "manufacturer": "Enactic / OpenArm",
+      "category": "robotics",
+      "description": "Terminal wrist joint and mechanical quick-connect gripper interface.",
+      "stl_file": "cad_library/robotics/openarm_wrist_roll.stl",
+      "step_file": null,
+      "dimensions_mm": {
+        "x": 65.0,
+        "y": 182.5,
+        "z": 62.0
+      },
+      "polygon_count": 4268,
+      "size_bytes": 1109698
+    },
+    {
+      "id": "gridfinity_1x1_3u_bin",
+      "name": "Gridfinity 1x1 3U Standard Storage Bin",
+      "manufacturer": "Zack Freedman Official Specification",
+      "category": "gridfinity",
+      "description": "Parametric 42mm modular storage unit with curved bottom scoop and magnet sockets.",
+      "stl_file": "cad_library/gridfinity/gridfinity_1x1_3u_bin.stl",
+      "step_file": "cad_library/gridfinity/gridfinity_1x1_3u_bin.step",
+      "dimensions_mm": {
+        "x": 41.5,
+        "y": 41.5,
+        "z": 24.8
+      },
+      "polygon_count": 9284,
+      "size_bytes": 464284
+    },
+    {
+      "id": "sg90_9g_micro_servo",
+      "name": "TowerPro SG90 9g Micro Servo",
+      "manufacturer": "TowerPro / Amazon Generic",
+      "category": "actuators",
+      "description": "Ubiquitous 9g blue micro servo for STEM education, DIY robotics, micro grippers, and pan-tilt gimbals. Features 21T spline and standard 2.0mm mounting holes.",
+      "stl_file": "cad_library/actuators/sg90_9g_micro_servo.stl",
+      "step_file": "cad_library/actuators/sg90_9g_micro_servo.step",
+      "dimensions_mm": {
+        "x": 32.5,
+        "y": 12.2,
+        "z": 30.2
+      },
+      "size_bytes": 146084
+    },
+    {
+      "id": "mg996r_metal_gear_servo",
+      "name": "TowerPro MG996R Metal Gear Servo",
+      "manufacturer": "TowerPro / Standard Amazon",
+      "category": "actuators",
+      "description": "Standard 55g high-torque metal gear servo (11 kg-cm at 6V) for robot arms, humanoid joints, steering, and heavy mechanisms. Standard 25T spline.",
+      "stl_file": "cad_library/actuators/mg996r_metal_gear_servo.stl",
+      "step_file": "cad_library/actuators/mg996r_metal_gear_servo.step",
+      "dimensions_mm": {
+        "x": 54.0,
+        "y": 19.71,
+        "z": 45.5
+      },
+      "size_bytes": 179584
+    },
+    {
+      "id": "ds3225_25kg_digital_servo",
+      "name": "DS3225 25kg High-Torque Digital Servo",
+      "manufacturer": "DSSERVO / Amazon",
+      "category": "actuators",
+      "description": "High-torque 25kg-cm digital coreless servo with CNC aluminum red heatsink middle casing and full metal gears. #1 Amazon choice for robotics actuators.",
+      "stl_file": "cad_library/actuators/ds3225_25kg_digital_servo.stl",
+      "step_file": "cad_library/actuators/ds3225_25kg_digital_servo.step",
+      "dimensions_mm": {
+        "x": 54.0,
+        "y": 20.01,
+        "z": 47.5
+      },
+      "size_bytes": 179684
+    },
+    {
+      "id": "28byj48_stepper_motor",
+      "name": "28BYJ-48 5V Geared Stepper Motor",
+      "manufacturer": "Kysan / Amazon STEM",
+      "category": "actuators",
+      "description": "Compact 5V 4-phase unipolar stepper motor with 1:64 reduction gearbox. Standard in STEM kits, dial indicators, miniature turntables, and automatic feeders.",
+      "stl_file": "cad_library/actuators/28byj48_stepper_motor.stl",
+      "step_file": "cad_library/actuators/28byj48_stepper_motor.step",
+      "dimensions_mm": {
+        "x": 42.0,
+        "y": 31.0,
+        "z": 35.0
+      },
+      "size_bytes": 133284
+    },
+    {
+      "id": "pca9685_16ch_servo_driver",
+      "name": "PCA9685 16-Channel 12-bit PWM Driver",
+      "manufacturer": "Adafruit / Amazon Standard",
+      "category": "boards",
+      "description": "I2C-bus controlled 16-channel 12-bit PWM LED and servo controller breakout board. Essential for multi-servo robot arms, hexapods, and animatronics.",
+      "stl_file": "cad_library/boards/pca9685_16ch_servo_driver.stl",
+      "step_file": "cad_library/boards/pca9685_16ch_servo_driver.step",
+      "dimensions_mm": {
+        "x": 62.5,
+        "y": 25.4,
+        "z": 16.5
+      },
+      "size_bytes": 130784
+    },
+    {
+      "id": "esp32_devkit_v1",
+      "name": "ESP32 DevKit V1 (30-Pin NodeMCU)",
+      "manufacturer": "Espressif / Amazon",
+      "category": "boards",
+      "description": "Popular ESP32 dual-core Xtensa LX6 microcontroller with integrated 2.4GHz Wi-Fi and Bluetooth BLE. The primary controller for IoT robotics and wireless companion bridges.",
+      "stl_file": "cad_library/boards/esp32_devkit_v1.stl",
+      "step_file": "cad_library/boards/esp32_devkit_v1.step",
+      "dimensions_mm": {
+        "x": 52.5,
+        "y": 28.0,
+        "z": 8.5
+      },
+      "size_bytes": 7484
+    },
+    {
+      "id": "arduino_nano_v3",
+      "name": "Arduino Nano V3 (ATmega328P)",
+      "manufacturer": "Arduino / Generic",
+      "category": "boards",
+      "description": "Compact, breadboard-friendly microcontroller board based on the ATmega328P. Ideal for miniature mechanisms, sensor hubs, and lightweight robotics.",
+      "stl_file": "cad_library/boards/arduino_nano_v3.stl",
+      "step_file": "cad_library/boards/arduino_nano_v3.step",
+      "dimensions_mm": {
+        "x": 45.0,
+        "y": 18.0,
+        "z": 8.5
+      },
+      "size_bytes": 7084
+    },
+    {
+      "id": "hcsr04_ultrasonic_sensor",
+      "name": "HC-SR04 Ultrasonic Distance Sensor",
+      "manufacturer": "Generic / Amazon STEM",
+      "category": "sensors",
+      "description": "Standard ultrasonic range finder providing 2cm to 400cm non-contact distance measurement. The classic 'eyes' of autonomous obstacle-avoiding robot cars.",
+      "stl_file": "cad_library/sensors/hcsr04_ultrasonic_sensor.stl",
+      "step_file": "cad_library/sensors/hcsr04_ultrasonic_sensor.step",
+      "dimensions_mm": {
+        "x": 45.0,
+        "y": 20.0,
+        "z": 17.85
+      },
+      "size_bytes": 52684
+    },
+    {
+      "id": "18650_dual_battery_holder",
+      "name": "Dual 18650 Li-Ion Battery Holder (2S / 7.4V)",
+      "manufacturer": "Generic / Amazon",
+      "category": "batteries",
+      "description": "Standard plastic battery sled for two 18650 lithium-ion cells with leaf spring contacts and wire leads. Primary power source for mobile robot chassis.",
+      "stl_file": "cad_library/batteries/18650_dual_battery_holder.stl",
+      "step_file": "cad_library/batteries/18650_dual_battery_holder.step",
+      "dimensions_mm": {
+        "x": 76.0,
+        "y": 41.0,
+        "z": 19.5
+      },
+      "size_bytes": 54284
+    },
+    {
+      "id": "l298n_motor_driver_module",
+      "name": "L298N Dual H-Bridge Motor Driver Module",
+      "manufacturer": "STMicroelectronics / Amazon",
+      "category": "hardware",
+      "description": "High-power dual DC motor driver module with large aluminum heatsink. Drives two DC gear motors (up to 2A per channel) or one 4-wire bipolar stepper.",
+      "stl_file": "cad_library/hardware/l298n_motor_driver_module.stl",
+      "step_file": "cad_library/hardware/l298n_motor_driver_module.step",
+      "dimensions_mm": {
+        "x": 43.0,
+        "y": 43.0,
+        "z": 25.0
+      },
+      "size_bytes": 89084
+    },
+    {
+      "id": "sg90_pan_tilt_bracket",
+      "name": "SG90 2-Axis Pan-Tilt Gimbal Bracket Kit",
+      "manufacturer": "Amazon STEM / 3D Printable",
+      "category": "robotics",
+      "description": "Precision 2-DOF pan-tilt camera and sensor gimbal bracket designed for two SG90 / MG90S micro servos. Mounts ultrasonic sensors or FPV cameras.",
+      "stl_file": "cad_library/robotics/sg90_pan_tilt_bracket.stl",
+      "step_file": "cad_library/robotics/sg90_pan_tilt_bracket.step",
+      "dimensions_mm": {
+        "x": 35.0,
+        "y": 30.0,
+        "z": 34.0
+      },
+      "size_bytes": 5484
+    },
+    {
+      "id": "servo_horns_kit",
+      "name": "Universal Servo Horns & Linkage Kit",
+      "manufacturer": "TowerPro / Amazon",
+      "category": "actuators",
+      "description": "Assortment of single-arm, double-arm, cross, and disc nylon servo horns with standardized 1.2mm linkage holes for pushrods and steering linkages.",
+      "stl_file": "cad_library/actuators/servo_horns_kit.stl",
+      "step_file": "cad_library/actuators/servo_horns_kit.step",
+      "dimensions_mm": {
+        "x": 25.01,
+        "y": 20.01,
+        "z": 4.9
+      },
+      "size_bytes": 101984
+    },
+    {
+      "id": "tt_motor_wheel_65mm",
+      "name": "65mm TT Gearbox Motor Rubber Wheel",
+      "manufacturer": "Amazon Robotics / Smart Car",
+      "category": "robotics",
+      "description": "Standard 65mm diameter rubber tire and yellow plastic rim with dual-flat drive hub for TT yellow DC gearbox motors. Standard on all 2WD/4WD STEM robot kits.",
+      "stl_file": "cad_library/robotics/tt_motor_wheel_65mm.stl",
+      "step_file": "cad_library/robotics/tt_motor_wheel_65mm.step",
+      "dimensions_mm": {
+        "x": 65.02,
+        "y": 65.0,
+        "z": 26.02
+      },
+      "size_bytes": 100884
+    }
+  ]
+};
+
+    const MODULE_PRESETS = {
+      ROBOTICS: [
+        { id: "KIDS-ARM-LINK-SG90", name: "🧒 Kids STEM Mini-Arm Link (Amazon SG90)", p1: 85, p2: 20, p3: 16, template: "robotics_projects_engine.scad", cadId: "sg90___mg90s_metal_gear_micro_servo" },
+        { id: "AUTONOMOUS-ROVER-TT", name: "🚗 Autonomous Rover Chassis (Yellow TT Motors)", p1: 180, p2: 140, p3: 45, template: "robotics_projects_engine.scad", cadId: "yellow_tt_dc_hobby_gearmotor" },
+        { id: "PAN-TILT-HEAD-SG90", name: "👁️ 2-DOF Somatic Pan-Tilt Neck & Camera", p1: 72, p2: 72, p3: 65, template: "robotics_projects_engine.scad", cadId: "sg90___mg90s_metal_gear_micro_servo" },
+        { id: "OPENARM-PRO-7DOF", name: "🦾 Pro 7-DOF Kinematic Link (SteadyWin/DaMiao)", p1: 140, p2: 58, p3: 32, template: "robotics_projects_engine.scad", cadId: "openarm_shoulder_pitch" },
+        { id: "DESKTOP-COMPANION-POD", name: "🎙️ Desktop AI Companion Pod (Gemma Mini)", p1: 110, p2: 95, p3: 110, template: "robotics_projects_engine.scad", cadId: "raspberry_pi_5_model_b" }
+      ],
+      ENCLOSURE: [
+        { id: "RPI-5-B", name: "Raspberry Pi 5 (85x56mm)", p1: 92, p2: 62, p3: 28, template: "enclosure_engine.scad", cadId: "raspberry_pi_5_model_b" },
+        { id: "ARDUINO-UNO-R3", name: "Arduino Uno R3 / Metro 328 (68x53mm)", p1: 76, p2: 60, p3: 24, template: "enclosure_engine.scad", cadId: "adafruit_metro_328_(arduino_uno_r3)" },
+        { id: "RPI-ZERO-2W", name: "Raspberry Pi Zero 2W (65x30mm)", p1: 71, p2: 36, p3: 18, template: "enclosure_engine.scad", cadId: "raspberry_pi_zero_w___2w" },
+        { id: "RPI-PICO-W", name: "Raspberry Pi Pico / Pico W (51x21mm)", p1: 57, p2: 27, p3: 16, template: "enclosure_engine.scad", cadId: "raspberry_pi_pico_w" },
+        { id: "ESP32-FEATHER", name: "Feather ESP32-S3 (51x23mm)", p1: 58, p2: 29, p3: 16, template: "enclosure_engine.scad", cadId: "adafruit_feather_esp32-s3" },
+        { id: "QT-PY-ESP32", name: "Adafruit QT Py (22x18mm Micro)", p1: 28, p2: 24, p3: 12, template: "enclosure_engine.scad", cadId: "adafruit_qt_py_esp32-s2" },
+        { id: "BME280-SENSOR-POD", name: "BME280 Sensor Pod (26x18mm)", p1: 32, p2: 24, p3: 14, template: "enclosure_engine.scad", cadId: "bme280_environmental_sensor" }
+      ],
+      PHONE_CASE: [
+        { id: "IPHONE-16-PRO", name: "iPhone 16 Pro (MagSafe 36-Ring Array)", p1: 153.6, p2: 75.4, p3: 11.2, template: "phone_case_engine.scad" },
+        { id: "IPHONE-16-PRO-MAX", name: "iPhone 16 Pro Max", p1: 167.0, p2: 81.6, p3: 11.2, template: "phone_case_engine.scad" },
+        { id: "SAMSUNG-S25-ULTRA", name: "Samsung Galaxy S25 Ultra", p1: 166.8, p2: 81.0, p3: 11.5, template: "phone_case_engine.scad" },
+        { id: "PIXEL-9-PRO", name: "Google Pixel 9 Pro (Camera Visor)", p1: 156.8, p2: 76.0, p3: 11.5, template: "phone_case_engine.scad" }
+      ],
+      HOUSEHOLD_FIXES: [
+        { id: "PIP-PHONE-STAND", name: "📱 Print-In-Place Foldable Phone Stand (13g)", p1: 85, p2: 60, p3: 75, template: "household_utility_engine.scad" },
+        { id: "TUBE-ROLLER-SQUEEZER", name: "🧴 LastDrop Toothpaste / Paint Tube Squeezer", p1: 72, p2: 24, p3: 20, template: "household_utility_engine.scad" },
+        { id: "DUAL-CHAMBER-PLANTER", name: "🪴 Dual-Chamber Self-Watering Planter (Capillary Wick)", p1: 110, p2: 110, p3: 115, template: "household_utility_engine.scad" },
+        { id: "UNDERDESK-HEADPHONE-MOUNT", name: "🎧 Under-Desk Headphone Hanger (45° Gusset)", p1: 120, p2: 45, p3: 65, template: "household_utility_engine.scad" }
+      ],
+      PRINTER_MODS: [
+        { id: "COREXY-TPU-FOOT", name: "🖨️ CoreXY TPU Anti-Vibration Damper Foot", p1: 48, p2: 48, p3: 28, template: "household_utility_engine.scad" },
+        { id: "COREXY-PURGE-CHUTE", name: "💩 CoreXY Purge Deflector / Poop Chute (38° Slope)", p1: 125, p2: 65, p3: 85, template: "household_utility_engine.scad" }
+      ],
+      GASKET_ORING: [
+        { id: "AS568-014-ORING", name: "AS568-014 Circular O-Ring (OD 19.3mm)", p1: 19.3, p2: 1.78, p3: 1.78, template: "gasket_engine.scad" },
+        { id: "AS568-112-ORING", name: "AS568-112 Circular O-Ring (OD 18.0mm)", p1: 18.0, p2: 2.62, p3: 2.62, template: "gasket_engine.scad" },
+        { id: "FLANGE-GASKET-4BOLT", name: "4-Bolt Flange Gasket with Crush Beads", p1: 50, p2: 50, p3: 2.5, template: "gasket_engine.scad" }
+      ],
+      VACUUM_HOSE: [
+        { id: "SHOPVAC-TO-FESTOOL", name: "Shop-Vac 2.5 inch to Festool D27", p1: 63.5, p2: 27.0, p3: 75, template: "adapter_hose_engine.scad" },
+        { id: "DEWALT-AIRLOCK-FESTOOL", name: "DeWalt AirLock to Festool D36", p1: 42.0, p2: 36.0, p3: 65, template: "adapter_hose_engine.scad" }
+      ],
+      BATTERY_DOCK: [
+        { id: "MILWAUKEE-M18-DOCK", name: "Milwaukee M18 RedLithium Slide Dock", p1: 96, p2: 78, p3: 32, template: "battery_dock_engine.scad" },
+        { id: "DEWALT-20V-MAX-DOCK", name: "DeWalt 20V Max Slide Mount", p1: 92, p2: 74, p3: 28, template: "battery_dock_engine.scad" }
+      ],
+      GRIDFINITY: [
+        { id: "GRIDFINITY-1X1-3U", name: "Gridfinity 1x1 (42mm) 3U Bin", p1: 42, p2: 42, p3: 28, template: "gridfinity_engine.scad", cadId: "gridfinity_1x1_3u_standard_storage_bin" },
+        { id: "GRIDFINITY-1X2-6U", name: "Gridfinity 1x2 Divider Bin 6U", p1: 42, p2: 84, p3: 49, template: "gridfinity_engine.scad" }
+      ],
+      KNOB_DIAL: [
+        { id: "KNOB-D-SHAFT-6MM", name: "Fluted Knob (6mm D-Shaft Flat)", p1: 28, p2: 28, p3: 18, template: "knob_and_dial_engine.scad" },
+        { id: "KNOB-SPLINED-18T", name: "Knurled Potentiometer Knob (18T Spline)", p1: 22, p2: 22, p3: 16, template: "knob_and_dial_engine.scad" }
+      ],
+      GEAR_PULLEY: [
+        { id: "GT2-PULLEY-20T", name: "GT2 Timing Pulley (20T, 5mm Bore)", p1: 16, p2: 16, p3: 16, template: "gear_and_pulley_engine.scad", cadId: "gt2_aluminum_timing_pulley_(16t)" },
+        { id: "HERRINGBONE-PAIR-24T", name: "Double-Helical Herringbone Gear 24T", p1: 36, p2: 36, p3: 14, template: "gear_and_pulley_engine.scad" }
+      ],
+      JEWELRY_RING: [
+        { id: "RING-SIGNET-US9", name: "Comfort-Fit Signet Ring (US 9 / 19.0mm)", p1: 19.0, p2: 19.0, p3: 6.5, template: "jewelry_engine.scad" },
+        { id: "PENDANT-GYRO-3AXIS", name: "Kinetic 3-Axis Gyroscope Pendant", p1: 45, p2: 45, p3: 8.0, template: "jewelry_engine.scad" }
+      ]
+    };
+
+    // 3D Scene Initialization
+    const container = document.getElementById('viewport');
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x070c18);
+
+    const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 1, 1500);
+    camera.position.set(120, 100, 140);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.shadowMap.enabled = true;
+    container.appendChild(renderer.domElement);
+
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+    controls.target.set(0, 10, 0);
+
+    // Grid Floor
+    const grid = new THREE.GridHelper(300, 30, 0x1e293b, 0x0f172a);
+    grid.position.y = -0.1;
+    scene.add(grid);
+
+    // Studio Lighting
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+    scene.add(ambientLight);
+
+    const dirLight = new THREE.DirectionalLight(0x38bdf8, 0.8);
+    dirLight.position.set(100, 150, 100);
+    scene.add(dirLight);
+
+    const fillLight = new THREE.DirectionalLight(0x6366f1, 0.4);
+    fillLight.position.set(-100, 50, -100);
+    scene.add(fillLight);
+
+    // Materials
+    const matPrintable = new THREE.MeshStandardMaterial({ color: 0x0284c7, roughness: 0.35, metalness: 0.1, transparent: true, opacity: 0.88 });
+    const matLid = new THREE.MeshStandardMaterial({ color: 0x38bdf8, roughness: 0.4, metalness: 0.05, transparent: true, opacity: 0.82 });
+    const matHardwareCAD = new THREE.MeshStandardMaterial({ color: 0x10b981, roughness: 0.25, metalness: 0.6 });
+    const matGhost = new THREE.MeshStandardMaterial({ color: 0x94a3b8, roughness: 0.5, metalness: 0.2, wireframe: false });
+
+    const activeMeshGroup = new THREE.Group();
+    scene.add(activeMeshGroup);
+
+    const cadMeshGroup = new THREE.Group();
+    scene.add(cadMeshGroup);
+
+    const stlLoader = new THREE.STLLoader();
+
+    // Populate CAD Selector Dropdown
+    function initCadDropdown() {
+      const sel = document.getElementById('cadModelSelector');
+      sel.innerHTML = '<option value="NONE">-- None (Procedural Only) --</option>';
+      
+      const cats = {};
+      CAD_MANIFEST.items.forEach(item => {
+        if (!cats[item.category]) cats[item.category] = [];
+        cats[item.category].push(item);
+      });
+
+      for (const [catName, items] of Object.entries(cats)) {
+        const optgroup = document.createElement('optgroup');
+        optgroup.label = catName.toUpperCase();
+        items.forEach(it => {
+          const opt = document.createElement('option');
+          opt.value = it.id;
+          opt.innerText = `${it.name} (${it.manufacturer})`;
+          optgroup.appendChild(opt);
+        });
+        sel.appendChild(optgroup);
+      }
+    }
+
+    function loadCadModelById(id) {
+      while (cadMeshGroup.children.length > 0) cadMeshGroup.remove(cadMeshGroup.children[0]);
+      const infoBox = document.getElementById('cadModelInfo');
+      
+      if (id === "NONE") {
+        infoBox.style.display = 'none';
+        return;
+      }
+
+      const item = CAD_MANIFEST.items.find(it => it.id === id);
+      if (!item) return;
+
+      infoBox.style.display = 'flex';
+      const d = item.dimensions_mm;
+      document.getElementById('cadDims').innerText = `${d.x} x ${d.y} x ${d.z} mm`;
+      document.getElementById('cadDesc').innerText = `${item.name} [${item.manufacturer}] - ${item.description}`;
+
+      if (item.stl_file) {
+        // Load the genuine STL
+        stlLoader.load(`../${item.stl_file}`, geom => {
+          geom.computeVertexNormals();
+          geom.center();
+          const mesh = new THREE.Mesh(geom, matHardwareCAD);
+          // Position inside the current print volume
+          mesh.position.set(0, (d.z || 15) / 2, 0);
+          cadMeshGroup.add(mesh);
+        }, undefined, err => {
+          // If local CORS blocks fetch, display dimensional bounding dummy
+          console.warn("Local fetch restricted, showing dimensional CAD proxy", err);
+          const box = new THREE.Mesh(new THREE.BoxGeometry(d.x || 20, d.z || 15, d.y || 20), matHardwareCAD);
+          box.position.set(0, (d.z || 15) / 2, 0);
+          cadMeshGroup.add(box);
+        });
+      }
+    }
+
+    function updatePresetDropdown() {
+      const eng = document.getElementById('engineSelector').value;
+      const sel = document.getElementById('presetSelector');
+      sel.innerHTML = '';
+      const list = MODULE_PRESETS[eng] || [];
+      list.forEach(p => {
+        const opt = document.createElement('option');
+        opt.value = p.id;
+        opt.innerText = p.name;
+        sel.appendChild(opt);
+      });
+      if (list.length > 0) applyPreset(list[0]);
+    }
+
+    function applyPreset(p) {
+      document.getElementById('partIdInput').value = p.id;
+      document.getElementById('param1').value = p.p1;
+      document.getElementById('param2').value = p.p2;
+      document.getElementById('param3').value = p.p3;
+      document.getElementById('valParam1').innerText = p.p1 + 'mm';
+      document.getElementById('valParam2').innerText = p.p2 + 'mm';
+      document.getElementById('valParam3').innerText = p.p3 + 'mm';
+      document.getElementById('hudMode').innerText = document.getElementById('engineSelector').value;
+      document.getElementById('hudPartId').innerText = p.id;
+
+      if (p.cadId) {
+        document.getElementById('cadModelSelector').value = p.cadId;
+        loadCadModelById(p.cadId);
+      } else {
+        document.getElementById('cadModelSelector').value = "NONE";
+        loadCadModelById("NONE");
+      }
+      rebuild3DModel();
+    }
+
+    function rebuild3DModel() {
+      while (activeMeshGroup.children.length > 0) activeMeshGroup.remove(activeMeshGroup.children[0]);
+
+      const eng = document.getElementById('engineSelector').value;
+      const p1 = parseFloat(document.getElementById('param1').value);
+      const p2 = parseFloat(document.getElementById('param2').value);
+      const p3 = parseFloat(document.getElementById('param3').value);
+      const explode = parseFloat(document.getElementById('sliderExplode').value);
+
+      if (eng === "ROBOTICS") {
+        const link = new THREE.Mesh(new THREE.BoxGeometry(p1, p3, p2), matPrintable);
+        link.position.set(0, p3 / 2, 0);
+        activeMeshGroup.add(link);
+      } else if (eng === "ENCLOSURE") {
+        const wall = 2.4;
+        const baseH = p3 * 0.65, lidH = p3 * 0.35;
+        const base = new THREE.Mesh(new THREE.BoxGeometry(p1, baseH, p2), matPrintable);
+        base.position.set(0, baseH / 2, 0);
+        const lid = new THREE.Mesh(new THREE.BoxGeometry(p1, lidH, p2), matLid);
+        lid.position.set(0, baseH + lidH / 2 + explode, 0);
+        activeMeshGroup.add(base);
+        activeMeshGroup.add(lid);
+      } else if (eng === "PHONE_CASE") {
+        const body = new THREE.Mesh(new THREE.BoxGeometry(p1, p3, p2), matPrintable);
+        body.position.set(0, p3 / 2, 0);
+        const camLip = new THREE.Mesh(new THREE.BoxGeometry(44, p3 + 2, 46), matLid);
+        camLip.position.set(p1 / 2 - 26, p3 / 2 + 1, p2 / 2 - 27);
+        activeMeshGroup.add(body);
+        activeMeshGroup.add(camLip);
+      } else if (eng === "HOUSEHOLD_FIXES") {
+        const base = new THREE.Mesh(new THREE.BoxGeometry(p1, 6, p2), matPrintable);
+        base.position.set(0, 3, 0);
+        const upright = new THREE.Mesh(new THREE.BoxGeometry(p1 * 0.85, p3, 5), matLid);
+        upright.position.set(0, p3 / 2 + 3, -p2 / 4);
+        upright.rotation.x = -0.35;
+        activeMeshGroup.add(base);
+        activeMeshGroup.add(upright);
+      } else if (eng === "PRINTER_MODS") {
+        const cup = new THREE.Mesh(new THREE.CylinderGeometry(p1 / 2, p1 / 2 * 0.9, p3, 32), matPrintable);
+        cup.position.set(0, p3 / 2, 0);
+        const flange = new THREE.Mesh(new THREE.CylinderGeometry(p1 / 2 * 1.25, p1 / 2 * 1.25, 4, 32), matLid);
+        flange.position.set(0, 2, 0);
+        activeMeshGroup.add(cup);
+        activeMeshGroup.add(flange);
+      } else if (eng === "GASKET_ORING") {
+        const torus = new THREE.Mesh(new THREE.TorusGeometry(p1 / 2, p2 / 2, 24, 64), matLid);
+        torus.rotation.x = Math.PI / 2;
+        torus.position.set(0, p2 / 2, 0);
+        activeMeshGroup.add(torus);
+      } else {
+        const cyl = new THREE.Mesh(new THREE.CylinderGeometry(p1 / 2, p1 / 2, p3, 36), matPrintable);
+        cyl.position.set(0, p3 / 2, 0);
+        activeMeshGroup.add(cyl);
+      }
+    }
+
+    // Drag and Drop STL handling
+    const dropzone = document.getElementById('dropzone');
+    const fileInput = document.getElementById('fileInput');
+
+    dropzone.addEventListener('click', () => fileInput.click());
+    dropzone.addEventListener('dragover', e => { e.preventDefault(); dropzone.classList.add('dragover'); });
+    dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
+    dropzone.addEventListener('drop', e => {
+      e.preventDefault();
+      dropzone.classList.remove('dragover');
+      if (e.dataTransfer.files.length > 0) loadLocalStl(e.dataTransfer.files[0]);
+    });
+    fileInput.addEventListener('change', e => {
+      if (e.target.files.length > 0) loadLocalStl(e.target.files[0]);
+    });
+
+    function loadLocalStl(file) {
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        const geom = stlLoader.parse(evt.target.result);
+        geom.computeVertexNormals();
+        geom.center();
+        while (cadMeshGroup.children.length > 0) cadMeshGroup.remove(cadMeshGroup.children[0]);
+        const mesh = new THREE.Mesh(geom, matHardwareCAD);
+        cadMeshGroup.add(mesh);
+        document.getElementById('cadModelInfo').style.display = 'flex';
+        document.getElementById('cadDesc').innerText = `Loaded custom STL: ${file.name} (${(file.size/1024).toFixed(1)} KB)`;
+      };
+      reader.readAsArrayBuffer(file);
+    }
+
+    function animate() {
+      requestAnimationFrame(animate);
+      controls.update();
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    window.addEventListener('resize', () => {
+      camera.aspect = container.clientWidth / container.clientHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(container.clientWidth, container.clientHeight);
+    });
+
+    // Event Listeners
+    document.getElementById('engineSelector').addEventListener('change', updatePresetDropdown);
+    document.getElementById('presetSelector').addEventListener('change', e => {
+      const eng = document.getElementById('engineSelector').value;
+      const p = MODULE_PRESETS[eng].find(item => item.id === e.target.value);
+      if (p) applyPreset(p);
+    });
+
+    document.getElementById('cadModelSelector').addEventListener('change', e => {
+      loadCadModelById(e.target.value);
+    });
+
+    document.getElementById('tierKids').addEventListener('click', () => {
+      document.getElementById('tierKids').classList.add('active');
+      document.getElementById('tierPro').classList.remove('active');
+      document.getElementById('engineSelector').value = 'ROBOTICS';
+      updatePresetDropdown();
+    });
+
+    document.getElementById('tierPro').addEventListener('click', () => {
+      document.getElementById('tierPro').classList.add('active');
+      document.getElementById('tierKids').classList.remove('active');
+      document.getElementById('engineSelector').value = 'ROBOTICS';
+      updatePresetDropdown();
+      const p = MODULE_PRESETS['ROBOTICS'].find(i => i.id === 'OPENARM-PRO-7DOF');
+      if (p) applyPreset(p);
+    });
+
+    ['param1', 'param2', 'param3', 'sliderExplode'].forEach(id => {
+      document.getElementById(id).addEventListener('input', e => {
+        const valElem = document.getElementById('val' + id.charAt(0).toUpperCase() + id.slice(1));
+        if (valElem) valElem.innerText = e.target.value + 'mm';
+        rebuild3DModel();
+      });
+    });
+
+    document.getElementById('btnCopyOpenSCAD').addEventListener('click', () => {
+      const eng = document.getElementById('engineSelector').value;
+      const partId = document.getElementById('partIdInput').value;
+      const p1 = document.getElementById('param1').value;
+      const p2 = document.getElementById('param2').value;
+      const p3 = document.getElementById('param3').value;
+
+      const code = `// Parametric Maker Forge - ${eng}\n// Crafted with ∞ Meraki\nPart_ID_Label = "${partId}";\nEmboss_Meraki_Hallmark = true;\nParam_1 = ${p1};\nParam_2 = ${p2};\nParam_3 = ${p3};\ninclude <templates/${MODULE_PRESETS[eng][0].template}>;`;
+      navigator.clipboard.writeText(code);
+      const toast = document.getElementById('toast');
+      toast.style.display = 'block';
+      setTimeout(() => toast.style.display = 'none', 2500);
+    });
+
+    // Initialize
+    initCadDropdown();
+    updatePresetDropdown();
+
+    // Check URL parameters for instant loading
+    const urlParams = new URLSearchParams(window.location.search);
+    const engParam = urlParams.get('engine');
+    const cadParam = urlParams.get('cad');
+    if (engParam && MODULE_PRESETS[engParam]) {
+      document.getElementById('engineSelector').value = engParam;
+      updatePresetDropdown();
+    }
+    if (cadParam) {
+      document.getElementById('cadModelSelector').value = cadParam;
+      loadCadModelById(cadParam);
+    }
+  </script>
+</body>
+</html>

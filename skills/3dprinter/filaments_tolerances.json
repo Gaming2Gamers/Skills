@@ -1,0 +1,56 @@
+{
+  "version": "1.0.0",
+  "description": "Filament shrinkage factors, mechanical clearance offsets, and recommended slicer settings for functional 3D prints",
+  "materials": {
+    "PLA": {
+      "shrinkage_factor": 0.003,
+      "snap_fit_clearance_mm": 0.20,
+      "sliding_fit_clearance_mm": 0.25,
+      "press_fit_interference_mm": -0.05,
+      "recommended_walls": 3,
+      "recommended_infill_pct": 20,
+      "infill_pattern": "gyroid",
+      "heat_deflection_temp_c": 55,
+      "suitability": "Indoor enclosures, workshop jigs, non-thermal brackets"
+    },
+    "PETG": {
+      "shrinkage_factor": 0.005,
+      "snap_fit_clearance_mm": 0.22,
+      "sliding_fit_clearance_mm": 0.28,
+      "press_fit_interference_mm": -0.04,
+      "recommended_walls": 4,
+      "recommended_infill_pct": 25,
+      "infill_pattern": "gyroid",
+      "heat_deflection_temp_c": 75,
+      "suitability": "Vacuum adapters, battery docks, snap-fit latches with repeated flex"
+    },
+    "ABS_ASA": {
+      "shrinkage_factor": 0.012,
+      "snap_fit_clearance_mm": 0.25,
+      "sliding_fit_clearance_mm": 0.32,
+      "press_fit_interference_mm": -0.02,
+      "recommended_walls": 4,
+      "recommended_infill_pct": 30,
+      "infill_pattern": "gyroid",
+      "heat_deflection_temp_c": 98,
+      "suitability": "Outdoor enclosures, high-power electronics, automotive engine bay brackets"
+    },
+    "TPU_95A": {
+      "shrinkage_factor": 0.008,
+      "gasket_compression_factor": 0.25,
+      "recommended_walls": 3,
+      "recommended_infill_pct": 100,
+      "heat_deflection_temp_c": 60,
+      "suitability": "Weatherproof O-rings, vibration dampeners, soft feet"
+    },
+    "PA_CF": {
+      "shrinkage_factor": 0.004,
+      "snap_fit_clearance_mm": 0.18,
+      "sliding_fit_clearance_mm": 0.22,
+      "recommended_walls": 5,
+      "recommended_infill_pct": 40,
+      "heat_deflection_temp_c": 145,
+      "suitability": "Heavy-duty robotics linkages, high-torque motor mounts, router templates"
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "version": "1.1.0",
+  "description": "Standardized sizing charts and dimensional tolerances for 3D printed parametric jewelry and earrings",
+  "ring_sizes_us": {
+    "US_4": { "inner_dia_mm": 14.86, "circumference_mm": 46.68, "uk_size": "H" },
+    "US_5": { "inner_dia_mm": 15.70, "circumference_mm": 49.32, "uk_size": "J 1/2" },
+    "US_6": { "inner_dia_mm": 16.51, "circumference_mm": 51.87, "uk_size": "M" },
+    "US_7": { "inner_dia_mm": 17.35, "circumference_mm": 54.51, "uk_size": "O" },
+    "US_8": { "inner_dia_mm": 18.19, "circumference_mm": 57.15, "uk_size": "Q" },
+    "US_9": { "inner_dia_mm": 18.89, "circumference_mm": 59.34, "uk_size": "R 1/2" },
+    "US_10": { "inner_dia_mm": 19.84, "circumference_mm": 62.33, "uk_size": "T 1/2" },
+    "US_11": { "inner_dia_mm": 20.68, "circumference_mm": 64.97, "uk_size": "V 1/2" },
+    "US_12": { "inner_dia_mm": 21.49, "circumference_mm": 67.51, "uk_size": "X 1/2" },
+    "US_13": { "inner_dia_mm": 22.33, "circumference_mm": 70.15, "uk_size": "Z 1/2" },
+    "US_14": { "inner_dia_mm": 23.14, "circumference_mm": 72.69, "uk_size": "Z4" }
+  },
+  "bangles_and_cuffs": {
+    "EXTRA_SMALL": { "inner_dia_mm": 54.0, "wrist_circumference_mm": 150.0 },
+    "SMALL": { "inner_dia_mm": 58.0, "wrist_circumference_mm": 165.0 },
+    "MEDIUM": { "inner_dia_mm": 63.5, "wrist_circumference_mm": 180.0 },
+    "LARGE": { "inner_dia_mm": 69.0, "wrist_circumference_mm": 195.0 },
+    "EXTRA_LARGE": { "inner_dia_mm": 74.0, "wrist_circumference_mm": 210.0 }
+  },
+  "earring_findings_and_standards": {
+    "french_hook_eyelet": {
+      "eyelet_hole_dia_mm": 1.5,
+      "eyelet_ring_outer_dia_mm": 3.4,
+      "recommended_wall_thickness_mm": 0.95
+    },
+    "stud_post_recess": {
+      "post_pocket_dia_mm": 1.0,
+      "post_pocket_depth_mm": 1.4,
+      "adhesive_pad_dia_mm": 5.0
+    },
+    "weight_ergonomics": {
+      "target_weight_per_earring_grams": 1.8,
+      "max_comfortable_weight_grams": 3.8,
+      "recommended_z_thickness_mm": 1.4
+    },
+    "standard_hoop_sizes": {
+      "huggie_mini_dia_mm": 12.0,
+      "small_dia_mm": 18.0,
+      "medium_dia_mm": 28.0,
+      "statement_large_dia_mm": 42.0
+    }
+  },
+  "gemstone_settings_round": {
+    "GEM_4MM": { "stone_dia_mm": 4.0, "seat_dia_mm": 3.8, "prong_count": 4, "prong_dia_mm": 0.8 },
+    "GEM_6MM": { "stone_dia_mm": 6.0, "seat_dia_mm": 5.7, "prong_count": 6, "prong_dia_mm": 1.0 },
+    "GEM_8MM": { "stone_dia_mm": 8.0, "seat_dia_mm": 7.6, "prong_count": 6, "prong_dia_mm": 1.2 },
+    "GEM_10MM": { "stone_dia_mm": 10.0, "seat_dia_mm": 9.5, "prong_count": 8, "prong_dia_mm": 1.4 }
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "version": "2.0.0",
+  "description": "Verified CAD mechanical dimensions, corner radii, camera island bounds, and MagSafe ring offsets for modern smartphones",
+  "phones": {
+    "IPHONE_16_PRO": {
+      "name": "Apple iPhone 16 Pro",
+      "body_mm": [149.6, 71.5, 8.25],
+      "corner_radius_mm": 12.5,
+      "camera_bump": {
+        "width_mm": 40.5,
+        "height_mm": 43.0,
+        "depth_mm": 4.1,
+        "corner_radius_mm": 10.0,
+        "origin_offset_top_left_mm": [4.0, 4.0]
+      },
+      "magsafe": {
+        "center_from_bottom_mm": 74.8,
+        "ring_outer_dia_mm": 60.0,
+        "ring_inner_dia_mm": 54.0,
+        "alignment_magnet_dims_mm": [5.0, 10.0]
+      },
+      "buttons": {
+        "action_button": { "side": "left", "y_center_mm": 115.0, "len_mm": 12.0 },
+        "volume_up": { "side": "left", "y_center_mm": 96.0, "len_mm": 12.0 },
+        "volume_down": { "side": "left", "y_center_mm": 80.0, "len_mm": 12.0 },
+        "camera_control": { "side": "right", "y_center_mm": 42.0, "len_mm": 16.0 },
+        "power_button": { "side": "right", "y_center_mm": 95.0, "len_mm": 18.0 }
+      },
+      "ports": {
+        "usb_c_bottom": { "x_center_mm": 35.75, "width_mm": 14.0, "height_mm": 6.5 }
+      }
+    },
+    "IPHONE_16_PRO_MAX": {
+      "name": "Apple iPhone 16 Pro Max",
+      "body_mm": [163.0, 77.6, 8.25],
+      "corner_radius_mm": 13.0,
+      "camera_bump": { "width_mm": 42.0, "height_mm": 45.0, "depth_mm": 4.2, "origin_offset_top_left_mm": [4.5, 4.5] },
+      "magsafe": { "center_from_bottom_mm": 81.5, "ring_outer_dia_mm": 60.0, "ring_inner_dia_mm": 54.0 }
+    },
+    "IPHONE_15_PRO": {
+      "name": "Apple iPhone 15 Pro",
+      "body_mm": [146.6, 70.6, 8.25],
+      "corner_radius_mm": 11.5,
+      "camera_bump": { "width_mm": 39.5, "height_mm": 42.0, "depth_mm": 4.0, "origin_offset_top_left_mm": [4.0, 4.0] },
+      "magsafe": { "center_from_bottom_mm": 73.3, "ring_outer_dia_mm": 60.0, "ring_inner_dia_mm": 54.0 }
+    },
+    "SAMSUNG_GALAXY_S25_ULTRA": {
+      "name": "Samsung Galaxy S25 Ultra",
+      "body_mm": [162.8, 77.6, 8.2],
+      "corner_radius_mm": 4.0,
+      "camera_bump": {
+        "lens_column_width_mm": 26.0,
+        "lens_column_height_mm": 68.0,
+        "depth_mm": 3.8,
+        "origin_offset_top_left_mm": [5.0, 5.0]
+      },
+      "buttons": {
+        "power_and_volume": { "side": "right", "volume_y_mm": 105.0, "power_y_mm": 82.0 }
+      },
+      "spen_cutout": { "side": "bottom_left", "width_mm": 10.0, "height_mm": 7.0 }
+    },
+    "GOOGLE_PIXEL_9_PRO": {
+      "name": "Google Pixel 9 Pro",
+      "body_mm": [152.8, 72.0, 8.5],
+      "corner_radius_mm": 13.0,
+      "camera_visor": {
+        "width_mm": 68.0,
+        "height_mm": 24.0,
+        "depth_mm": 3.6,
+        "y_center_from_top_mm": 22.0
+      }
+    }
+  },
+  "magsafe_standard_magnets": {
+    "circular_array_od_mm": 60.0,
+    "circular_array_id_mm": 54.0,
+    "magnet_thickness_mm": 0.8,
+    "case_recess_depth_mm": 0.9,
+    "alignment_magnet_size_mm": [5.0, 10.0, 0.8]
+  }
+}

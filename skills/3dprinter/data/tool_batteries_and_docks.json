@@ -1,0 +1,72 @@
+{
+  "version": "2.0.0",
+  "description": "Verified mechanical rail dimensions, dovetails, terminal blade pitches, and spring-latch catches for power tool battery and tool wall docks",
+  "batteries_and_docks": {
+    "MILWAUKEE_M18": {
+      "name": "Milwaukee M18 RedLithium 18V",
+      "rail_type": "parallel_flange",
+      "outside_rail_width_mm": 44.5,
+      "inside_slot_width_mm": 37.0,
+      "rail_slot_thickness_mm": 3.8,
+      "rail_lip_thickness_mm": 3.2,
+      "slide_length_mm": 75.0,
+      "latch": { "catch_notch_offset_from_front_mm": 38.5, "catch_notch_width_mm": 12.0, "catch_notch_depth_mm": 2.5 },
+      "terminals": { "blade_pitch_mm": 18.0, "blade_height_mm": 14.0, "blade_thickness_mm": 0.8 }
+    },
+    "MILWAUKEE_M12": {
+      "name": "Milwaukee M12 Lithium-Ion Stem Mount",
+      "rail_type": "cylindrical_stem",
+      "stem_diameter_mm": 31.8,
+      "stem_height_mm": 45.0,
+      "latch_detent_width_mm": 8.0,
+      "latch_detent_depth_mm": 2.2
+    },
+    "DEWALT_20V_MAX": {
+      "name": "DeWalt 20V Max / XR / FlexVolt",
+      "rail_type": "dovetail_taper",
+      "dovetail_width_top_mm": 38.0,
+      "dovetail_width_base_mm": 42.0,
+      "dovetail_angle_deg": 45.0,
+      "rail_height_mm": 5.0,
+      "slide_length_mm": 72.0,
+      "latch": { "locking_window_width_mm": 15.0, "locking_window_depth_mm": 8.0, "offset_from_rear_mm": 28.0 }
+    },
+    "DEWALT_12V_MAX": {
+      "name": "DeWalt 12V Max Slide",
+      "rail_type": "dovetail_taper",
+      "dovetail_width_top_mm": 32.0,
+      "dovetail_width_base_mm": 35.5,
+      "slide_length_mm": 55.0
+    },
+    "MAKITA_18V_LXT": {
+      "name": "Makita 18V LXT Lithium-Ion",
+      "rail_type": "parallel_flange",
+      "outside_rail_width_mm": 43.0,
+      "rail_slot_thickness_mm": 3.4,
+      "slide_length_mm": 80.0,
+      "terminal_block_keepout_mm": [22.0, 18.0]
+    },
+    "RYOBI_18V_ONE_PLUS": {
+      "name": "Ryobi ONE+ 18V Tower Mount",
+      "rail_type": "stem_post",
+      "stem_outer_dia_mm": 27.5,
+      "stem_height_mm": 48.0,
+      "latch_detents_mm": [12.0, 36.0]
+    },
+    "BOSCH_18V_PROCORE": {
+      "name": "Bosch 18V ProCORE / Standard Li-Ion",
+      "rail_type": "parallel_track",
+      "outside_rail_width_mm": 48.0,
+      "inside_slot_width_mm": 40.5,
+      "rail_slot_thickness_mm": 4.0,
+      "slide_length_mm": 76.0
+    },
+    "BAUER_20V": {
+      "name": "Harbor Freight Bauer 20V",
+      "rail_type": "dovetail_taper",
+      "dovetail_width_top_mm": 37.5,
+      "dovetail_width_base_mm": 41.5,
+      "slide_length_mm": 70.0
+    }
+  }
+}

@@ -15,7 +15,7 @@
 
 | Skill Icon | Skill Identifier | Category | Class Tier | Package Download |
 |---|---|---|---|---|
-| 🛠️ | **`@3dprinter`** | Parametric CAD & 3D Printing | **Master Artificer (Epic)** | [Download `3dprinter.zip`](packages/3dprinter.zip) |
+| 🛠️ | **`@three-d-printer`** | Parametric CAD & 3D Printing | **Master Artificer (Epic)** | [Download `3dprinter.zip`](packages/3dprinter.zip) |
 | 🦾 | **`@openarm`** | 7-DOF Kinematics & CAN Bus | *Legendary (Coming Soon)* | *In Development* |
 | 🤖 | **`@companion`** | Somatic Companion & Wetware | *Mythic (Coming Soon)* | *In Development* |
 
@@ -47,20 +47,20 @@ Turn your AI model into a master parametric mechanical engineer that writes math
 1. Download [`packages/3dprinter.zip`](packages/3dprinter.zip).
 2. Open **Gemini Advanced** -> **Settings / Skills** -> Click **Upload Skill**.
 3. Select `3dprinter.zip`.
-4. In your prompt, tag **`@3dprinter`** and turn on **Deep Think / Extended Thinking**!
+4. In your prompt, tag **`@three-d-printer`** and turn on **Deep Think / Extended Thinking**!
 
 ### 🟠 Anthropic Claude (Claude Projects & Claude Code)
-* **Claude Projects:** Drag and drop `skills/3dprinter/SKILL.md`, `skills/3dprinter/cad_library/manifest.json`, and the `.scad` templates into your Project Knowledge.
-* **Claude Code:** Copy `skills/3dprinter` into your project's `.claude/skills/` directory.
+* **Claude Projects:** Drag and drop `skills/three-d-printer/SKILL.md`, `skills/three-d-printer/cad_library/manifest.json`, and the `.scad` templates into your Project Knowledge.
+* **Claude Code:** Copy `skills/three-d-printer` into your project's `.claude/skills/` directory.
 
 ### 🟢 OpenAI ChatGPT (Custom GPTs)
 1. Go to **Explore GPTs** -> **Create a GPT**.
-2. Paste the contents of `skills/3dprinter/SKILL.md` into **Instructions**.
-3. Upload `skills/3dprinter/cad_library/manifest.json` and the template files to **Knowledge**.
+2. Paste the contents of `skills/three-d-printer/SKILL.md` into **Instructions**.
+3. Upload `skills/three-d-printer/cad_library/manifest.json` and the template files to **Knowledge**.
 4. Set model to **o1**, **o3-mini (High Reasoning)**, or **GPT-4o**.
 
 ### 💻 IDE & Local Agents (Cursor, Windsurf, DeepSeek-R1, Ollama)
-* **Cursor / Windsurf:** Add `skills/3dprinter/SKILL.md` to your `.cursorrules` or `.windsurfrules`.
+* **Cursor / Windsurf:** Add `skills/three-d-printer/SKILL.md` to your `.cursorrules` or `.windsurfrules`.
 * **Local Models:** Pass `SKILL.md` as the system prompt to **DeepSeek-R1** or **Qwen 2.5 Coder 32B**.
 
 ---
@@ -75,7 +75,7 @@ Skills/
 ├── packages/
 │   └── 3dprinter.zip                     # Pre-packaged 1-click install (40.12 MB)
 └── skills/
-    └── 3dprinter/
+    └── three-d-printer/
         ├── SKILL.md                      # Canonical skill instructions & prompt
         ├── README.md                     # Skill documentation
         ├── dfam_tolerance_and_mechanisms.json # Engineering clearance database

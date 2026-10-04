@@ -15,7 +15,8 @@
 
 | Skill Icon | Skill Identifier | Category | Class Tier | Package Download |
 |---|---|---|---|---|
-| 🛠️ | **`@three-d-printer`** | Parametric CAD & 3D Printing | **Master Artificer (Epic)** | [Download `3dprinter.zip`](packages/3dprinter.zip) |
+| 🛠️ | **`@three-d-printer`** | Parametric CAD & 3D Printing | **Master Artificer (Epic)** | [Download `three-d-printer.zip`](packages/three-d-printer.zip) |
+| ✍️ | **`@description-polisher`** | Visual Copy & Markdown Architect | **Grand Wordsmith (Rare)** | [Download `description-polisher.zip`](packages/description-polisher.zip) |
 | 🦾 | **`@openarm`** | 7-DOF Kinematics & CAN Bus | *Legendary (Coming Soon)* | *In Development* |
 | 🤖 | **`@companion`** | Somatic Companion & Wetware | *Mythic (Coming Soon)* | *In Development* |
 
@@ -44,9 +45,9 @@ Turn your AI model into a master parametric mechanical engineer that writes math
 ## 🕹️ How to Equip Skills
 
 ### 🔵 Google Gemini (Native 1-Click Upload)
-1. Download [`packages/3dprinter.zip`](packages/3dprinter.zip).
+1. Download [`packages/three-d-printer.zip`](packages/three-d-printer.zip).
 2. Open **Gemini Advanced** -> **Settings / Skills** -> Click **Upload Skill**.
-3. Select `3dprinter.zip`.
+3. Select `three-d-printer.zip`.
 4. In your prompt, tag **`@three-d-printer`** and turn on **Deep Think / Extended Thinking**!
 
 ### 🟠 Anthropic Claude (Claude Projects & Claude Code)
@@ -73,28 +74,32 @@ Skills/
 ├── LICENSE
 ├── README.md
 ├── packages/
-│   └── 3dprinter.zip                     # Pre-packaged 1-click install (40.12 MB)
+│   ├── three-d-printer.zip               # Pre-packaged 1-click install (118 KB)
+│   └── description-polisher.zip          # Pre-packaged 1-click install (5.3 KB)
 └── skills/
-    └── three-d-printer/
-        ├── SKILL.md                      # Canonical skill instructions & prompt
-        ├── README.md                     # Skill documentation
-        ├── dfam_tolerance_and_mechanisms.json # Engineering clearance database
-        ├── cad_library/
-        │   ├── manifest.json             # 82-item CAD component catalog
-        │   ├── actuators/                # Servos (SG90, MG996R, DS3225), steppers, motors
-        │   ├── batteries/                # 18650 sleds, LiPo packs
-        │   ├── boards/                   # ESP32, Arduino Nano, Pico, PCA9685
-        │   ├── displays/                 # TFTs, OLEDs, NeoPixel rings
-        │   ├── gridfinity/               # Standard Zack Freedman bins
-        │   ├── hardware/                 # 2020 extrusion, buttons, jacks
-        │   ├── robotics/                 # OpenArm links, TT wheels, pan-tilts
-        │   └── sensors/                  # HC-SR04 ultrasonic, BME280, IMUs
-        └── templates/
-            ├── webgl_3d_canvas_preview.html # 3D Three.js interactive preview
-            ├── enclosure_engine.scad     # Snap-fit & heat-set enclosures
-            ├── robotics_projects_engine.scad # STEM arms, rovers, pan-tilts
-            ├── household_utility_engine.scad # Squeezers, clips, cord wraps
-            └── ... (9 additional OpenSCAD engines)
+    ├── three-d-printer/
+    │   ├── SKILL.md                      # Canonical skill instructions & prompt
+    │   ├── README.md                     # Skill documentation
+    │   ├── dfam_tolerance_and_mechanisms.json # Engineering clearance database
+    │   ├── cad_library/
+    │   │   ├── manifest.json             # 82-item CAD component catalog
+    │   │   ├── actuators/                # Servos (SG90, MG996R, DS3225), steppers, motors
+    │   │   ├── batteries/                # 18650 sleds, LiPo packs
+    │   │   ├── boards/                   # ESP32, Arduino Nano, Pico, PCA9685
+    │   │   ├── displays/                 # TFTs, OLEDs, NeoPixel rings
+    │   │   ├── gridfinity/               # Standard Zack Freedman bins
+    │   │   ├── hardware/                 # 2020 extrusion, buttons, jacks
+    │   │   ├── robotics/                 # OpenArm links, TT wheels, pan-tilts
+    │   │   └── sensors/                  # HC-SR04 ultrasonic, BME280, IMUs
+    │   ├── data/                         # Standardized hardware specifications
+    │   └── templates/
+    │       ├── webgl_3d_canvas_preview.html # 3D Three.js interactive preview
+    │       ├── enclosure_engine.scad     # Snap-fit & heat-set enclosures
+    │       ├── robotics_projects_engine.scad # STEM arms, rovers, pan-tilts
+    │       ├── household_utility_engine.scad # Squeezers, clips, cord wraps
+    │       └── ... (9 additional OpenSCAD engines)
+    └── description-polisher/
+        └── SKILL.md                      # Visual Markdown & copy architect
 ```
 
 ---
